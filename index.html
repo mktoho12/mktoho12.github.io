@@ -1,66 +1,294 @@
 <!doctype html>
-
-<html lang="en">
-
+<html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <title>mktoho's self introduction</title>
-  <meta name="description" content="This site is my self-introduction page. Nice to meet you.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mktoho</title>
+<meta name="description" content="AIと一緒にいろんなことをやっている記録。無人で動くループを組んで実サービスを直させたり、買い物の検討過程を全部残したり、大学の授業をAIと進めたり。">
+<meta property="og:title" content="mktoho">
+<meta property="og:description" content="AIと一緒にいろんなことをやっている記録。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mktoho.dev/">
+<meta property="og:image" content="https://mktoho.dev/og.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@mktoho12">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fcfbf9; --surface:#fff; --surface-2:#f5f3ef;
+  --ink:#1a1815; --ink-2:#57524b; --ink-3:#8d857b;
+  --line:#e5e0d8; --line-2:#d2cbc0;
+  --accent:#a8481c; --accent-soft:#fdf0e8;
+  --live:#2f6b46; --live-soft:#e7f3ec;
+  --radius:14px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#141310; --surface:#1d1b17; --surface-2:#25231d;
+    --ink:#f3ede3; --ink-2:#bdb5a7; --ink-3:#8b8377;
+    --line:#312d26; --line-2:#443e34;
+    --accent:#e89060; --accent-soft:#2d1f17;
+    --live:#7cc79a; --live-soft:#19271f;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141310; --surface:#1d1b17; --surface-2:#25231d;
+  --ink:#f3ede3; --ink-2:#bdb5a7; --ink-3:#8b8377;
+  --line:#312d26; --line-2:#443e34;
+  --accent:#e89060; --accent-soft:#2d1f17;
+  --live:#7cc79a; --live-soft:#19271f;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  line-height:1.85;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
 
-  <meta property="og:title" content="mktoho's portfolio">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mktoho.dev/">
-  <meta property="og:image" content="https://mktoho.dev/og.png">
+/* hero */
+header{padding:66px 0 46px;border-bottom:1px solid var(--line)}
+.idcard{display:flex;align-items:center;gap:15px;margin:0 0 26px}
+.idcard img{
+  width:66px;height:66px;border-radius:50%;flex:none;
+  border:2px solid var(--line-2);background:var(--surface-2);
+}
+.name{
+  font-family:var(--mono);font-size:1.12rem;font-weight:700;
+  letter-spacing:.02em;margin:0;color:var(--accent);
+}
+.handle{font-size:.8rem;color:var(--ink-3);margin:1px 0 0}
+h1{
+  font-size:clamp(1.7rem,4.6vw,2.5rem);line-height:1.42;
+  margin:0 0 20px;font-weight:900;letter-spacing:-.01em;
+}
+.intro{font-size:1.03rem;color:var(--ink-2);margin:0;max-width:64ch}
+.intro strong{color:var(--ink);font-weight:700}
+.links{display:flex;flex-wrap:wrap;gap:9px;margin:28px 0 0}
+.links a{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 15px;border:1px solid var(--line-2);border-radius:99px;
+  text-decoration:none;font-size:.85rem;font-weight:600;
+  background:var(--surface);transition:border-color .15s,background .15s;
+}
+.links a:hover{border-color:var(--accent);background:var(--accent-soft)}
+.links .id{font-family:var(--mono);font-size:.8rem;color:var(--ink-2)}
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+/* sections */
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{font-size:1.3rem;font-weight:800;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--ink-2);margin:0 0 30px;font-size:.94rem}
+p{margin:0 0 15px}
 
-  <link rel="stylesheet" href="main.css">
+/* featured */
+.feat{
+  background:var(--surface);border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:var(--radius);padding:28px 30px;margin:0 0 20px;
+}
+.feat h3{margin:0 0 4px;font-size:1.3rem;font-weight:800;letter-spacing:-.01em}
+.feat .tagline{color:var(--accent);font-size:.86rem;font-weight:700;margin:0 0 16px}
+.feat p{font-size:.95rem;color:var(--ink-2)}
+.feat p strong{color:var(--ink)}
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:10px;overflow:hidden;margin:20px 0;
+}
+.stat{background:var(--surface-2);padding:14px 12px;text-align:center}
+.stat .v{font-family:var(--mono);font-size:1.32rem;font-weight:800;letter-spacing:-.02em;display:block}
+.stat .k{font-size:.72rem;color:var(--ink-3);margin-top:2px;display:block}
+
+/* project grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px}
+.proj{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:20px 22px;
+  display:flex;flex-direction:column;
+  text-decoration:none;transition:border-color .15s,transform .15s;
+}
+.proj:hover{border-color:var(--accent);transform:translateY(-2px)}
+.proj .top{display:flex;align-items:center;gap:8px;margin:0 0 8px;flex-wrap:wrap}
+.proj h3{margin:0;font-size:1.03rem;font-weight:700}
+.badge{
+  font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:99px;
+  letter-spacing:.05em;white-space:nowrap;
+}
+.badge.live{background:var(--live-soft);color:var(--live)}
+.badge.pause{background:var(--surface-2);color:var(--ink-3)}
+.proj p{font-size:.87rem;color:var(--ink-2);margin:0 0 14px;flex:1}
+.stack{display:flex;flex-wrap:wrap;gap:5px}
+.stack span{
+  font-family:var(--mono);font-size:.7rem;color:var(--ink-3);
+  background:var(--surface-2);padding:2px 7px;border-radius:5px;
+}
+
+/* how i work */
+.principles{display:grid;gap:13px}
+.pr{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:19px 22px;
+}
+.pr h3{margin:0 0 7px;font-size:1rem;font-weight:700}
+.pr p{margin:0;font-size:.89rem;color:var(--ink-2)}
+
+footer{padding:44px 0 64px;color:var(--ink-3);font-size:.85rem}
+footer a{color:var(--accent)}
+</style>
 </head>
-
 <body>
-  <main>
-    <h1>mktoho</h1>
 
-    <p>Hi, I'm mktoho. Programmer in 🇯🇵.</p>
-    
-    <h2>About me</h2>
-    
-    <p>I am a programmer who loves video games and programming. I like programming, but I'm not very good at working.</p>
-    
-    <h3>Contact</h3>
-    <ul>
-      <li><a href="mailto:mk@mktoho.org">mk@mktoho.org</a></li>
-      <li><a href="https://twitter.com/mktoho12" target="_blank">Twitter</a></li>
-      <li><a href="https://linkedin.com/in/mktoho/" target="_blank">LinkedIn</a></li>
-    </ul>
-    
-    <h3>Skills</h3>
-    <p>I am currently interested in the following. Thank you.</p>
-    <ul>
-      <li>TypeScript</li>
-      <li>React and Next.js</li>
-      <li>GraphQL using Apollo Nexus Prisma...</li>
-    </ul>
-    
-    <h3>Social media</h3>
-    <ul>
-      <li><a href="https://github.com/mktoho12" target="_blank">GitHub</a></li>
-      <li><a href="https://www.hackerrank.com/mktoho" target="_blank">HackerRank</a></li>
-      <li><a href="https://dev.to/mktoho12" target="_blank">DEV</a></li>
-    </ul>
+<header class="wrap">
+  <div class="idcard">
+    <img src="/assets/icon.png" alt="mktoho のアイコン" width="66" height="66">
+    <div>
+      <p class="name">mktoho</p>
+      <p class="handle">mktoho.dev</p>
+    </div>
+  </div>
+  <h1>AIと一緒に、いろんなことをやっています。</h1>
+  <p class="intro">
+    最近やっているのは、<strong>自分がプロンプトを打つ役から降りること</strong>。
+    人間が指示を出し続ける代わりに、AIに指示を出し続ける仕組みのほうを組んで、放っておいても物事が進むようにする。
+    実際に無人で動くループを組んで、実在のWebサービスを直させ続けています。
+    <br><br>
+    ソフトウェアだけの話でもなくて、大学の授業も、日常の買い物も、同じやり方で進めています。
+    うまくいったことも、盛大に失敗したことも、なるべくそのまま記録に残すようにしています。
+  </p>
+  <nav class="links">
+    <a href="https://github.com/mktoho12">GitHub <span class="id">mktoho12</span></a>
+    <a href="https://x.com/mktoho12">X <span class="id">@mktoho12</span></a>
+    <a href="https://bsky.app/profile/mktoho.dev">Bluesky <span class="id">@mktoho.dev</span></a>
+    <a href="mailto:mk@mktoho.dev">Mail <span class="id">mk@mktoho.dev</span></a>
+  </nav>
+</header>
 
-    <h2>Works</h2>
-    <ul>
-      <li><a href="https://toho-vote.info/" target="_blank">Touhou voting JP</a></li>
-      <li><a href="https://dogs.mktoho.dev/" target="_blank">Try using Rest Hooks</a></li>
-      <li><a href="https://wordle.mktoho.dev/" target="_blank">WORDLE Cheating</a></li>
-      <li><a href="https://graphql.mktoho.dev/" target="_blank">GraphQL Tutorial</a></li>
-    </ul>
-  </main>
+<main>
+
+<section class="wrap">
+  <h2>いま一番おもしろいこと</h2>
+  <p class="sub">ループエンジニアリング — 人間を、プロンプトを打つ役から外す</p>
+
+  <div class="feat">
+    <h3>loop-engineering</h3>
+    <p class="tagline">AIにプロンプトを打つ「仕組み」のほうを設計する</p>
+    <p>
+      発見ループと修正ループの2本を GitHub Issue でつなぎ、<strong>launchd で毎時、無人で回しました。</strong>
+      発見ループが問題を見つけて Issue を立て、修正ループがそれを拾って worktree の中で直し、PR を出す。
+      人間の仕事はマージボタンを押すことだけになります。
+    </p>
+
+    <div class="stats">
+      <div class="stat"><span class="v">10</span><span class="k">マージされたPR</span></div>
+      <div class="stat"><span class="v">3</span><span class="k">実在の脆弱性を発見</span></div>
+      <div class="stat"><span class="v">$50</span><span class="k">1日分のコスト</span></div>
+      <div class="stat"><span class="v">7日</span><span class="k">静かに停止していた</span></div>
+    </div>
+
+    <p>
+      おもしろいのは、うまくいった話より<strong>壊れ方のほう</strong>でした。
+      最初の実験では<strong>停止条件が3箇所とも壊れていて</strong>、test も lint も typecheck も全部緑なのに、
+      「何も実装していないコード」が通り、重大な認可欠陥がそのまま見逃されました。
+      機械的な検証は「壊れていないこと」しか見てくれない。
+    </p>
+    <p>
+      無人運転で一番怖かったのは、<strong>失敗が静かに永続化すること</strong>です。
+      API接続が切れて空のブランチが残り、それが「着手済み」と誤判定されて、その Issue は永久に処理されなくなりました。
+      ループは exit 0 を返し続けていたので、<strong>7日間、誰も気づきませんでした。</strong>
+    </p>
+    <p style="margin-bottom:0">
+      調査ノートから実験ログ、無人運転の障害記録、復旧までを全部残しています。
+      → <a href="https://github.com/mktoho12/loop-engineering" style="color:var(--accent);font-weight:700">リポジトリを見る</a>
+    </p>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>つくったもの</h2>
+  <p class="sub">動いているもの、止まっているもの、実験で終わったもの。</p>
+
+  <div class="grid">
+
+    <a class="proj" href="https://github.com/EngineMaker/world-issue-tracker">
+      <div class="top"><h3>World Issue Tracker</h3><span class="badge live">稼働中</span></div>
+      <p>「地球のバグを、みんなで可視化して、みんなで直す」。ソフトウェア開発の Issue Tracker を現実世界に持ち込んで、個人の困りごとから国際問題までを同じ仕組みで扱う。上のループが実際に働いている対象でもあります。</p>
+      <div class="stack"><span>Hono</span><span>Next.js</span><span>Cloudflare Workers</span><span>D1</span><span>Clerk</span></div>
+    </a>
+
+    <a class="proj" href="https://sumahokau.mktoho.dev/">
+      <div class="top"><h3>スマホを買うまでの全記録</h3><span class="badge live">公開中</span></div>
+      <p>老眼で文字が読めない親向けの大画面Androidと、開発検証用のiPhone。条件の違う2台を予算15万円で選び切るまで。前提が2回ひっくり返って結論が変わった過程も、検索が間違った価格を返した事例も、そのまま残しました。</p>
+      <div class="stack"><span>Claude Code</span><span>GitHub Pages</span></div>
+    </a>
+
+    <a class="proj" href="https://github.com/mktoho12/university-courses">
+      <div class="top"><h3>AIと大学の授業を進める</h3><span class="badge live">進行中</span></div>
+      <p>解析学をAIと一緒に。ポイントは「教わる」のではなく<strong>教わり方を設計する</strong>こと。答えを即出しさせず、自分の仮説を先に言ってから欠落を診断させる。過去に線形代数で挫折した原因を言語化して、そこから逆算しました。</p>
+      <div class="stack"><span>Markdown</span><span>Obsidian</span><span>matplotlib</span></div>
+    </a>
+
+    <a class="proj" href="https://github.com/mktoho12/discord-reaction-stats">
+      <div class="top"><h3>Discord リアクション集計</h3><span class="badge live">運用中</span></div>
+      <p>コミュニティのリアクションを「もらった数 / 付けた数」で月次集計してレポート化。毎月1日に自動で走ります。日本時間の朝6時を月の始まりにする、自己リアクションは除く——人を数字にするときの気遣いのほうが設計の本体でした。</p>
+      <div class="stack"><span>TypeScript</span><span>discord.js</span><span>Neon</span><span>Cloudflare Pages</span></div>
+    </a>
+
+    <a class="proj" href="https://github.com/mktoho12/try-multi-agent">
+      <div class="top"><h3>12役のマルチエージェント</h3><span class="badge pause">実験終了</span></div>
+      <p>PM・アーキテクト・バックエンド・法務・税務まで12の役割を作って、7フェーズのパイプラインで協調させ、シェアハウス管理システムを作らせる実験。動くところまでは行きました。この「大掛かりな組織」路線から、小さいループの反復へ考えが変わっていきます。</p>
+      <div class="stack"><span>Python</span><span>Claude API</span><span>tool_use</span></div>
+    </a>
+
+    <a class="proj" href="https://github.com/mktoho12/gomi-discord-bot">
+      <div class="top"><h3>ごみの日 通知Bot</h3><span class="badge live">稼働中</span></div>
+      <p>収集日の前日18時に「明日は可燃ごみ」とDiscordへ流すだけのBot。自分が忘れるから作りました。サーバーは立てず、GitHub Actions の cron だけで無料で動かしています。小さいけれど、生活の困りごとが実際に消えました。</p>
+      <div class="stack"><span>Node.js</span><span>GitHub Actions</span><span>Discord Webhook</span></div>
+    </a>
+
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>やってみて分かったこと</h2>
+  <p class="sub">AIと長く作業して、繰り返し効いてきた考え方。</p>
+
+  <div class="principles">
+    <div class="pr">
+      <h3>停止条件が嘘をつくと、ループは「何も検証せずに緑を返す装置」になる</h3>
+      <p>回す前に、止まる仕組みのほうが本当に動くか確かめる。テストが緑であることと、正しいことは別物でした。</p>
+    </div>
+    <div class="pr">
+      <h3>作り手と検証役は分ける</h3>
+      <p>同じエージェントに作らせて確認させると、自分の作ったものを甘く見ます。役割を分けるのが一番効きました。</p>
+    </div>
+    <div class="pr">
+      <h3>失敗は、派手に落ちるより静かに残るほうが怖い</h3>
+      <p>無人で回すなら、成功の観測より「失敗が観測されているか」を先に作る。7日間気づかなかった話がこれです。</p>
+    </div>
+    <div class="pr">
+      <h3>過程を残すと、結論が変わったときに理由が追える</h3>
+      <p>買い物でも学習でも同じでした。「なぜその案を捨てたか」を書いておかないと、同じ検討を何度もやり直します。</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>
+    ここに書いてあるものはだいたい GitHub に置いてあります →
+    <a href="https://github.com/mktoho12">github.com/mktoho12</a>
+  </p>
+  <p style="margin:0">© mktoho</p>
+</footer>
 
 </body>
-
 </html>
