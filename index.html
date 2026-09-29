@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mktoho</title>
-<meta name="description" content="AIと一緒にいろんなことをやっている記録。無人で動くループを組んで実サービスを直させたり、買い物の検討過程を全部残したり、大学の授業をAIと進めたり。">
+<meta name="description" content="AIと一緒にいろんなことをやっている記録。AIに作ってもらった小さなシステムをシェアハウスで運用したり、無人で動くループを組んだり、買い物の検討過程を全部残したり。">
 <meta property="og:title" content="mktoho">
 <meta property="og:description" content="AIと一緒にいろんなことをやっている記録。">
 <meta property="og:type" content="website">
@@ -51,7 +51,7 @@ body{
   line-height:1.85;-webkit-font-smoothing:antialiased;
 }
 a{color:inherit}
-.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:22px}
 
 /* hero */
 header{padding:66px 0 46px;border-bottom:1px solid var(--line)}
@@ -140,6 +140,26 @@ p{margin:0 0 15px}
 .pr h3{margin:0 0 7px;font-size:1rem;font-weight:700}
 .pr p{margin:0;font-size:.89rem;color:var(--ink-2)}
 
+/* recent */
+.recent{list-style:none;margin:0;padding:0;border-left:2px solid var(--line-2)}
+.recent li{position:relative;padding:0 0 26px 22px}
+.recent li:last-child{padding-bottom:0}
+.recent li::before{
+  content:"";position:absolute;left:-6px;top:.62em;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--accent);
+}
+.recent .when{font-family:var(--mono);font-size:.76rem;color:var(--ink-3);display:block}
+.recent h3{margin:0 0 4px;font-size:1.02rem;font-weight:700}
+.recent p{margin:0 0 6px;font-size:.9rem;color:var(--ink-2)}
+.recent .clip{
+  display:block;width:100%;max-width:560px;height:auto;margin:6px 0 10px;
+  border:1px solid var(--line);border-radius:10px;background:var(--surface-2);
+}
+.recent .more{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.82rem}
+.recent .more a{color:var(--accent);font-weight:700;text-decoration:none}
+.recent .more a:hover{text-decoration:underline}
+
 footer{padding:44px 0 64px;color:var(--ink-3);font-size:.85rem}
 footer a{color:var(--accent)}
 </style>
@@ -156,11 +176,14 @@ footer a{color:var(--accent)}
   </div>
   <h1>AIと一緒に、いろんなことをやっています</h1>
   <p class="intro">
-    最近<strong>ループエンジニアリング</strong>というのをやってます<br>
-    放っておいても勝手に改善が進むような仕組みを作って、あとはAIに任せるみたいな感じ<br>
-    実際に無人で動くループを組んで、Webサービスを開発してもらい続けています
+    最近は<strong>AIに小規模なシステムを作ってもらって、シェアハウスで運用する</strong>のが楽しいです<br>
+    リビングの電光掲示板とか、雨が降り始めたら教えてくれる通知とか
     <br><br>
-    最近は大学の授業も、スマホの買い替えも、AIに聞いて進めています<br>
+    8月は<strong>ループエンジニアリング</strong>というのをやってました<br>
+    放っておいても勝手に改善が進むような仕組みを作って、あとはAIに任せるみたいな感じ<br>
+    実際に無人で動くループを組んで、Webサービスを開発してもらっていました
+    <br><br>
+    大学の授業も、スマホの買い替えも、AIに聞いて進めています<br>
     なるべくそのまま記録に残すようにして、あとから振り返ったり会話のネタになればいいなあという気持ち
   </p>
   <nav class="links">
@@ -174,7 +197,47 @@ footer a{color:var(--accent)}
 <main>
 
 <section class="wrap">
-  <h2>いま一番おもしろいこと</h2>
+  <h2>最近やっていること</h2>
+  <p class="sub">作ったものも、読んでいるものも、話したことも。新しい順です。</p>
+
+  <ol class="recent">
+    <li>
+      <span class="when">2026-09-30</span>
+      <h3>麦茶の動画が1本できた</h3>
+      <p>Remotion で動画を作っています。作り方の型を motion-kit にまとめて、それを使った1本目がこれ。リビングの画面で流す15秒です。</p>
+      <video class="clip" src="/assets/mugicha.mp4" poster="/assets/mugicha-poster.png" autoplay muted loop playsinline width="1920" height="1080" aria-label="麦茶の動画。ポットが外の熱をさえぎり、「ここに、冷たい麦茶がある」と出る"></video>
+      <p>グラスの結露を丸い点で描いたら炭酸の泡に見えたので、縦に垂れる滴に変えました。AI は動きを見て良し悪しを判断できないので、タイミングは人が決める、という分担にしています。1本作ったら、motion-kit への改善案が18件出てきました。</p>
+      <p class="more"><a href="https://github.com/mktoho12/motion-kit">motion-kit</a><a href="https://github.com/mktoho12/videos">動画のリポジトリ</a></p>
+    </li>
+    <li>
+      <span class="when">2026-09-29</span>
+      <h3>雨が降り始めたら、Discord に知らせる</h3>
+      <p>「22:40ごろまで降りそう」まで添えて通知する rain-alert を作りました。翌日にはリビングの掲示板にも出るようにしています。まだ試運転中です。</p>
+      <p class="more"><a href="https://github.com/EngineMaker/rain-alert">リポジトリ</a></p>
+    </li>
+    <li>
+      <span class="when">2026-09-22〜</span>
+      <h3>『銃・病原菌・鉄』を AI と読む</h3>
+      <p>難しい本を読み切るために、章に入る前に要約を出してもらって、寄り道も楽しみながら読んでいます。いまは第1章です。</p>
+      <p class="more"><a href="https://github.com/mktoho12/reading-guns-germs-steel">読書の記録</a></p>
+    </li>
+    <li>
+      <span class="when">2026-09-20</span>
+      <h3>シェアハウスのリビングに電光掲示板</h3>
+      <p>余っていた古い iPad を掲示板にしました。1日で動くところまで作って、そのあとは住人の声を聞きながら直しています。</p>
+      <p class="more"><a href="https://signboard.emaker.dev">掲示板</a><a href="https://github.com/EngineMaker/signboard">リポジトリ</a></p>
+    </li>
+    <li>
+      <span class="when">2026-08-23</span>
+      <h3>podcast「シェアハウス管理人の正しいラジオ」#21</h3>
+      <p>シェアハウスの管理人と、1時間を超えて話す番組です。#21「正しいシェアハウス」まで配信しています。</p>
+      <p class="more"><a href="https://open.spotify.com/show/3Qh0RcmFTJ19zCfLIjixzv">Spotify で聴く</a></p>
+    </li>
+  </ol>
+</section>
+
+<section class="wrap">
+  <h2>8月にやっていたこと</h2>
   <p class="sub">ループエンジニアリング — 人間を、プロンプトを打つ役から外す</p>
 
   <div class="feat">
@@ -217,6 +280,18 @@ footer a{color:var(--accent)}
 
   <div class="grid">
 
+    <a class="proj" href="https://github.com/EngineMaker/signboard">
+      <div class="top"><h3>リビングの電光掲示板</h3><span class="badge live">稼働中</span></div>
+      <p>シェアハウスのリビングに置いた古い iPad を、お知らせの掲示板に。Discord のスラッシュコマンド、管理画面、API の3通りで更新できます。MVP は1日で作り、新着を目立たせる、画面を光らせるといった改善は、住人に言われてから足しました。</p>
+      <div class="stack"><span>TypeScript</span><span>Hono</span><span>SQLite</span><span>discord.js</span></div>
+    </a>
+
+    <a class="proj" href="https://github.com/EngineMaker/rain-alert">
+      <div class="top"><h3>雨の降り始め・止み通知</h3><span class="badge pause">試運転中</span></div>
+      <p>降り始めと止みを Discord に通知して、「何時ごろまで降りそうか」も添えます。60分先までの予報と気象庁の降水短時間予報を組み合わせて、5分ごとに確認しています。掲示板にも出ます。</p>
+      <div class="stack"><span>Rust</span><span>systemd timer</span><span>Discord</span></div>
+    </a>
+
     <a class="proj" href="https://github.com/EngineMaker/world-issue-tracker">
       <div class="top"><h3>World Issue Tracker</h3><span class="badge live">稼働中</span></div>
       <p>「地球のバグを、みんなで可視化して、みんなで直す」。ソフトウェア開発の Issue Tracker を現実世界に持ち込んで、個人の困りごとから国際問題までを同じ仕組みで扱う。上のループが実際に働いている対象でもあります。</p>
@@ -225,7 +300,7 @@ footer a{color:var(--accent)}
 
     <a class="proj" href="https://sumahokau.mktoho.dev/">
       <div class="top"><h3>スマホを買うまでの全記録</h3><span class="badge live">公開中</span></div>
-      <p>老眼で文字が読めない親向けの大画面Androidと、開発検証用のiPhone。条件の違う2台を予算15万円で選び切るまで。前提が2回ひっくり返って結論が変わった過程も、検索が間違った価格を返した事例も、そのまま残しました。</p>
+      <p>文字を大きくして使いたい自分用の大画面Androidと、開発検証用のiPhone。条件の違う2台を予算15万円で選び切るまで。前提が2回ひっくり返って結論が変わった過程も、検索が間違った価格を返した事例も、そのまま残しました。</p>
       <div class="stack"><span>Claude Code</span><span>GitHub Pages</span></div>
     </a>
 
