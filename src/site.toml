@@ -1,0 +1,153 @@
+# mktoho.dev の中身。ここを書き換えて `src/build.py` を実行すると index.html ができる
+# 文章の書き方:
+# - 句点「。」は書いても書かなくてもよい。書いた場所で改行され、句点そのものは表示されない
+# - 文の途中の折り返し位置は、BudouX が文節の切れ目に自動で入れる
+# - 読む人へのお願い（「〜してください」）は書かない。「知りたい」までにとどめる
+
+[intro]
+name = "mktoho"
+lede = "AIに小さなシステムを作ってもらって、シェアハウスで運用しています"
+desc = "大学で勉強しながら、本を読んだり、ゲームをしたり、ノートに書きながら考えたりしています。"
+
+[[links]]
+label = "GitHub"
+id = "github.com/mktoho12"
+url = "https://github.com/mktoho12"
+
+[[links]]
+label = "X"
+id = "@mktoho12"
+url = "https://x.com/mktoho12"
+
+[[links]]
+label = "Bluesky"
+id = "@mktoho.dev"
+url = "https://bsky.app/profile/mktoho.dev"
+
+[contact]
+mail = "mk@mktoho.dev"
+
+# 最近のこと。新しいものを先頭に足す。新しい順に上から8件を表示し、それより前は「それより前」にたたむ
+# 作業セッションの終わりに AI が1行の案を出し、本人の OK で足す
+[[recent]]
+date = "2026-11-16"
+text = "アメリカの50州を紹介する、3分の動く映像を AI に作ってもらった"
+url = "https://claude.ai/artifact/RyMWXqYr7wxr5p43RGFiZq"
+
+[[recent]]
+date = "2026-11-04"
+text = "World Issue Tracker が CPU を使いすぎていたのを直した（AI のクローラーが地図の URL を際限なく辿っていた）"
+url = "https://github.com/EngineMaker/world-issue-tracker"
+
+[[recent]]
+date = "2026-10-23"
+text = "PukiWiki の本家に、PHP 8.2〜8.5 で出る警告を直す修正を送った"
+url = "https://github.com/pukiwiki/pukiwiki/pull/7"
+
+[[recent]]
+date = "2026-10-21"
+text = "YouTube の字幕をテキストにする yt2txt を作った"
+url = "https://github.com/mktoho12/yt2txt"
+
+[[recent]]
+date = "2026-10-19"
+text = "ずんだもんの YouTube チャンネルを始めた（1週間で動画5本、ショート5本）"
+url = "https://www.youtube.com/@zundamon-sharehouse"
+
+[[recent]]
+date = "2026-10-11〜"
+text = "大学の線形代数2を AI と勉強している"
+url = ""
+
+[[recent]]
+date = "2026-10-04"
+text = "家のサーバーを Ubuntu 26.04 に上げた"
+url = "/notes/ubuntu-26-04/"
+
+[[recent]]
+date = "2026-09-30"
+text = "麦茶の動画を1本作った（Remotion と、作り方の型をまとめた motion-kit）"
+url = "https://github.com/mktoho12/videos"
+
+[[recent]]
+date = "2026-09-29"
+text = "雨が降り始めたら Discord に知らせる rain-alert を作った"
+url = "https://github.com/EngineMaker/rain-alert"
+
+[[recent]]
+date = "2026-09-22〜"
+text = "『銃・病原菌・鉄』を AI と読み始めた"
+url = "https://github.com/mktoho12/reading-guns-germs-steel"
+
+[[recent]]
+date = "2026-09-20"
+text = "余っていた iPad で、リビングの電光掲示板を作った"
+url = "https://signboard.emaker.dev"
+
+[[recent]]
+date = "2026-08-23"
+text = "podcast「シェアハウス管理人の正しいラジオ」#21 を配信した"
+url = "https://open.spotify.com/show/3Qh0RcmFTJ19zCfLIjixzv"
+
+[interests_head]
+sub = "それぞれ、いまやっていることと、知りたいことです。"
+
+# 興味があること。note に画像のパスを書くと、横にノートの写真が小さく出る（例: note = "assets/notes/game.webp"）
+[[interests]]
+name = "シェアハウスのコミュニティ"
+now = "シェアハウスに住んでいて、リビングの掲示板や雨の通知を作って運用しています。管理人と podcast もやっています。"
+want = "ほかのシェアハウスやコミュニティで、住人どうしのやりとりをどう回しているか。運営している人の話も、住んでいる人の話も。"
+
+[[interests]]
+name = "ゲーム"
+now = "HD-2D や、ノベルゲームっぽいものをよく遊んでいます。"
+want = "その系統のおすすめ。"
+enough = "大手の AAA 大作。長く遊ぶと疲れてしまうようになりました。"
+
+[[interests]]
+name = "AI"
+now = "AI に小さなシステムを作ってもらって、生活の中で使っています。AI のことは AI に聞くのが一番だと思っています。"
+want = "実際に AI を使って、こういうことをやった、作った、という話。それをやっている人。"
+enough = "AI のニュースやモデルの比較など、自分で使っていなくても言える、聞いた話。"
+
+[[interests]]
+name = "読書"
+now = "大学に入ってから本を読むことが増えました。いまは『銃・病原菌・鉄』を AI と読んでいます。"
+want = "AI やコンピューター以外の本のおすすめ。"
+
+[[interests]]
+name = "手書き"
+now = "きれいにまとめるためではなく、頭の中を整理するためにノートに書きながら考えています。大学の勉強で効き目を実感して、ゲームや読書、仕事でややこしい話を飲み込むときにも使うようになりました。"
+want = "同じように書いて考えている人の、やり方や道具の話。"
+
+[[interests]]
+name = "散歩"
+now = "フィールドワークと健康を兼ねて、一人でよく歩いています。山奥で森しかないような所でもない限り、どんな町にも歴史や文化があるはずで、それを探しながら歩くのが楽しいです。"
+
+# 作ったもの
+[[made]]
+group = "家で使っているもの"
+items = [
+  { name = "リビングの電光掲示板", url = "https://github.com/EngineMaker/signboard", how = "古い iPad を、住人へのお知らせを出す掲示板にしました。Discord からも書き込めます。" },
+  { name = "雨の通知", url = "https://github.com/EngineMaker/rain-alert", how = "降り始めと止みを Discord に知らせて、何時ごろまで降りそうかも添えます。" },
+  { name = "ごみの日の通知", url = "https://github.com/mktoho12/gomi-discord-bot", how = "収集日の前日18時に「明日は可燃ごみ」と流します。自分が忘れるので。" },
+  { name = "Discord のリアクション集計", url = "https://github.com/mktoho12/discord-reaction-stats", how = "コミュニティのリアクションを月ごとにまとめます。" },
+]
+
+[[made]]
+group = "記録として残したもの"
+items = [
+  { name = "スマホを買うまでの全記録", url = "https://sumahokau.mktoho.dev/", how = "2台を予算15万円で選ぶまで。途中で結論が2回変わった過程も残しました。" },
+  { name = "『銃・病原菌・鉄』の読書記録", url = "https://github.com/mktoho12/reading-guns-germs-steel", how = "章に入る前に要約を出してもらいながら読んでいます。" },
+  { name = "ずんだもんの動画", url = "https://www.youtube.com/@zundamon-sharehouse", how = "シェアハウスの暮らしを題材にした、ずんだもんの短い動画です。" },
+  { name = "麦茶の動画と motion-kit", url = "https://github.com/mktoho12/motion-kit", how = "リビングの画面で流す15秒の動画と、その作り方の型。" },
+  { name = "家のサーバーを Ubuntu 26.04 に上げた記録", url = "/notes/ubuntu-26-04/", how = "途中で GPU のドライバーが消えた話と、AI との分担。" },
+]
+
+[[made]]
+group = "実験"
+items = [
+  { name = "無人で回る開発ループ（8月）", url = "https://github.com/mktoho12/loop-engineering", how = "AI が問題を見つけて直すループを毎時、無人で回しました。7日間止まっていたのに誰も気づかなかった話も残っています。" },
+  { name = "World Issue Tracker", url = "https://github.com/EngineMaker/world-issue-tracker", how = "上のループが実際に開発していた Web サービスです。" },
+  { name = "12役のマルチエージェント", url = "https://github.com/mktoho12/try-multi-agent", how = "12の役割の AI を協調させてみた実験。ここから小さいループのほうへ考えが変わりました。" },
+]
