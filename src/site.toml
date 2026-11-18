@@ -56,8 +56,8 @@ url = "https://www.youtube.com/@zundamon-sharehouse"
 
 [[recent]]
 date = "2026-10-11〜"
-text = "大学の線形代数2を AI と勉強している"
-url = ""
+text = "大学の線形代数2を AI と勉強している（90セクション中23まで）"
+url = "https://github.com/mktoho12/linear-algebra-2-with-ai"
 
 [[recent]]
 date = "2026-10-04"
@@ -138,6 +138,7 @@ items = [
 group = "記録として残したもの"
 items = [
   { name = "スマホを買うまでの全記録", url = "https://sumahokau.mktoho.dev/", how = "2台を予算15万円で選ぶまで。途中で結論が2回変わった過程も残しました。" },
+  { name = "線形代数2を AI と学ぶ記録", url = "https://github.com/mktoho12/linear-algebra-2-with-ai", how = "教材は載せず、学び方のルールと、自分で気づいたことだけを残しています。" },
   { name = "『銃・病原菌・鉄』の読書記録", url = "https://github.com/mktoho12/reading-guns-germs-steel", how = "章に入る前に要約を出してもらいながら読んでいます。" },
   { name = "ずんだもんの動画", url = "https://www.youtube.com/@zundamon-sharehouse", how = "シェアハウスの暮らしを題材にした、ずんだもんの短い動画です。" },
   { name = "麦茶の動画と motion-kit", url = "https://github.com/mktoho12/motion-kit", how = "リビングの画面で流す15秒の動画と、その作り方の型。" },
