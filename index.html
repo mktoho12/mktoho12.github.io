@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>mktoho</title>
-<meta name="description" content="AIと一緒にいろんなことをやっている記録。AIに作ってもらった小さなシステムをシェアハウスで運用したり、無人で動くループを組んだり、買い物の検討過程を全部残したり。">
+<meta name="description" content="AIに小さなシステムを作ってもらって、シェアハウスで運用しています。いまやっていることと、興味があること、作ったもの。">
 <meta property="og:title" content="mktoho">
-<meta property="og:description" content="AIと一緒にいろんなことをやっている記録。">
+<meta property="og:description" content="AIに小さなシステムを作ってもらって、シェアハウスで運用しています。いまやっていることと、興味があること、作ったもの。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mktoho.dev/">
 <meta property="og:image" content="https://mktoho.dev/og.png">
@@ -17,353 +17,94 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#fcfbf9; --surface:#fff; --surface-2:#f5f3ef;
-  --ink:#1a1815; --ink-2:#57524b; --ink-3:#8d857b;
-  --line:#e5e0d8; --line-2:#d2cbc0;
-  --accent:#a8481c; --accent-soft:#fdf0e8;
-  --live:#2f6b46; --live-soft:#e7f3ec;
-  --radius:14px;
-  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#141310; --surface:#1d1b17; --surface-2:#25231d;
-    --ink:#f3ede3; --ink-2:#bdb5a7; --ink-3:#8b8377;
-    --line:#312d26; --line-2:#443e34;
-    --accent:#e89060; --accent-soft:#2d1f17;
-    --live:#7cc79a; --live-soft:#19271f;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#141310; --surface:#1d1b17; --surface-2:#25231d;
-  --ink:#f3ede3; --ink-2:#bdb5a7; --ink-3:#8b8377;
-  --line:#312d26; --line-2:#443e34;
-  --accent:#e89060; --accent-soft:#2d1f17;
-  --live:#7cc79a; --live-soft:#19271f;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--ink);
-  font-family:"Zen Kaku Gothic New",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-  line-height:1.85;-webkit-font-smoothing:antialiased;
-}
-a{color:inherit}
-.wrap{max-width:860px;margin:0 auto;padding-inline:22px}
-
-/* hero */
-header{padding:66px 0 46px;border-bottom:1px solid var(--line)}
-.idcard{display:flex;align-items:center;gap:15px;margin:0 0 26px}
-.idcard img{
-  width:66px;height:66px;border-radius:50%;flex:none;
-  border:2px solid var(--line-2);background:var(--surface-2);
-}
-.name{
-  font-family:var(--mono);font-size:1.12rem;font-weight:700;
-  letter-spacing:.02em;margin:0;color:var(--accent);
-}
-.handle{font-size:.8rem;color:var(--ink-3);margin:1px 0 0}
-h1{
-  font-size:clamp(1.7rem,4.6vw,2.5rem);line-height:1.42;
-  margin:0 0 20px;font-weight:900;letter-spacing:-.01em;
-}
-.intro{font-size:1.03rem;color:var(--ink-2);margin:0;max-width:64ch}
-.intro strong{color:var(--ink);font-weight:700}
-.links{display:flex;flex-wrap:wrap;gap:9px;margin:28px 0 0}
-.links a{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:8px 15px;border:1px solid var(--line-2);border-radius:99px;
-  text-decoration:none;font-size:.85rem;font-weight:600;
-  background:var(--surface);transition:border-color .15s,background .15s;
-}
-.links a:hover{border-color:var(--accent);background:var(--accent-soft)}
-.links .id{font-family:var(--mono);font-size:.8rem;color:var(--ink-2)}
-
-/* sections */
-section{padding:56px 0;border-bottom:1px solid var(--line)}
-section:last-of-type{border-bottom:0}
-h2{font-size:1.3rem;font-weight:800;margin:0 0 6px;letter-spacing:-.01em}
-.sub{color:var(--ink-2);margin:0 0 30px;font-size:.94rem}
-p{margin:0 0 15px}
-
-/* featured */
-.feat{
-  background:var(--surface);border:1px solid var(--line);
-  border-left:3px solid var(--accent);
-  border-radius:var(--radius);padding:28px 30px;margin:0 0 20px;
-}
-.feat h3{margin:0 0 4px;font-size:1.3rem;font-weight:800;letter-spacing:-.01em}
-.feat .tagline{color:var(--accent);font-size:.86rem;font-weight:700;margin:0 0 16px}
-.feat p{font-size:.95rem;color:var(--ink-2)}
-.feat p strong{color:var(--ink)}
-.stats{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));
-  gap:1px;background:var(--line);border:1px solid var(--line);
-  border-radius:10px;overflow:hidden;margin:20px 0;
-}
-.stat{background:var(--surface-2);padding:14px 12px;text-align:center}
-.stat .v{font-family:var(--mono);font-size:1.32rem;font-weight:800;letter-spacing:-.02em;display:block}
-.stat .k{font-size:.72rem;color:var(--ink-3);margin-top:2px;display:block}
-
-/* project grid */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px}
-.proj{
-  background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);padding:20px 22px;
-  display:flex;flex-direction:column;
-  text-decoration:none;transition:border-color .15s,transform .15s;
-}
-.proj:hover{border-color:var(--accent);transform:translateY(-2px)}
-.proj .top{display:flex;align-items:center;gap:8px;margin:0 0 8px;flex-wrap:wrap}
-.proj h3{margin:0;font-size:1.03rem;font-weight:700}
-.badge{
-  font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:99px;
-  letter-spacing:.05em;white-space:nowrap;
-}
-.badge.live{background:var(--live-soft);color:var(--live)}
-.badge.pause{background:var(--surface-2);color:var(--ink-3)}
-.proj p{font-size:.87rem;color:var(--ink-2);margin:0 0 14px;flex:1}
-.stack{display:flex;flex-wrap:wrap;gap:5px}
-.stack span{
-  font-family:var(--mono);font-size:.7rem;color:var(--ink-3);
-  background:var(--surface-2);padding:2px 7px;border-radius:5px;
-}
-
-/* how i work */
-.principles{display:grid;gap:13px}
-.pr{
-  background:var(--surface);border:1px solid var(--line);
-  border-radius:var(--radius);padding:19px 22px;
-}
-.pr h3{margin:0 0 7px;font-size:1rem;font-weight:700}
-.pr p{margin:0;font-size:.89rem;color:var(--ink-2)}
-
-/* recent */
-.recent{list-style:none;margin:0;padding:0;border-left:2px solid var(--line-2)}
-.recent li{position:relative;padding:0 0 26px 22px}
-.recent li:last-child{padding-bottom:0}
-.recent li::before{
-  content:"";position:absolute;left:-6px;top:.62em;
-  width:10px;height:10px;border-radius:50%;
-  background:var(--bg);border:2px solid var(--accent);
-}
-.recent .when{font-family:var(--mono);font-size:.76rem;color:var(--ink-3);display:block}
-.recent h3{margin:0 0 4px;font-size:1.02rem;font-weight:700}
-.recent p{margin:0 0 6px;font-size:.9rem;color:var(--ink-2)}
-.recent .clip{
-  display:block;width:100%;max-width:560px;height:auto;margin:6px 0 10px;
-  border:1px solid var(--line);border-radius:10px;background:var(--surface-2);
-}
-.recent .more{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.82rem}
-.recent .more a{color:var(--accent);font-weight:700;text-decoration:none}
-.recent .more a:hover{text-decoration:underline}
-
-footer{padding:44px 0 64px;color:var(--ink-3);font-size:.85rem}
-footer a{color:var(--accent)}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
 
-<header class="wrap">
-  <div class="idcard">
-    <img src="/assets/icon.png" alt="mktoho のアイコン" width="66" height="66">
-    <div>
-      <p class="name">mktoho</p>
-      <p class="handle">mktoho.dev</p>
-    </div>
-  </div>
-  <h1>AIと一緒に、いろんなことをやっています</h1>
-  <p class="intro">
-    最近は<strong>AIに小規模なシステムを作ってもらって、シェアハウスで運用する</strong>のが楽しいです<br>
-    リビングの電光掲示板とか、雨が降り始めたら教えてくれる通知とか
-    <br><br>
-    8月は<strong>ループエンジニアリング</strong>というのをやってました<br>
-    放っておいても勝手に改善が進むような仕組みを作って、あとはAIに任せるみたいな感じ<br>
-    実際に無人で動くループを組んで、Webサービスを開発してもらっていました
-    <br><br>
-    大学の授業も、スマホの買い替えも、AIに聞いて進めています<br>
-    なるべくそのまま記録に残すようにして、あとから振り返ったり会話のネタになればいいなあという気持ち
-  </p>
-  <nav class="links">
-    <a href="https://github.com/mktoho12">GitHub <span class="id">mktoho12</span></a>
-    <a href="https://x.com/mktoho12">X <span class="id">@mktoho12</span></a>
-    <a href="https://bsky.app/profile/mktoho.dev">Bluesky <span class="id">@mktoho.dev</span></a>
-    <a href="mailto:mk@mktoho.dev">Mail <span class="id">mk@mktoho.dev</span></a>
-  </nav>
-</header>
-
-<main>
-
-<section class="wrap">
-  <h2>最近やっていること</h2>
-  <p class="sub">作ったものも、読んでいるものも、話したことも。新しい順です。</p>
-
-  <ol class="recent">
-    <li>
-      <span class="when">2026-09-30</span>
-      <h3>麦茶の動画が1本できた</h3>
-      <p>Remotion で動画を作っています。作り方の型を motion-kit にまとめて、それを使った1本目がこれ。リビングの画面で流す15秒です。</p>
-      <video class="clip" src="/assets/mugicha.mp4" poster="/assets/mugicha-poster.png" autoplay muted loop playsinline width="1920" height="1080" aria-label="麦茶の動画。ポットが外の熱をさえぎり、「ここに、冷たい麦茶がある」と出る"></video>
-      <p>グラスの結露を丸い点で描いたら炭酸の泡に見えたので、縦に垂れる滴に変えました。AI は動きを見て良し悪しを判断できないので、タイミングは人が決める、という分担にしています。1本作ったら、motion-kit への改善案が18件出てきました。</p>
-      <p class="more"><a href="https://github.com/mktoho12/motion-kit">motion-kit</a><a href="https://github.com/mktoho12/videos">動画のリポジトリ</a></p>
-    </li>
-    <li>
-      <span class="when">2026-09-29</span>
-      <h3>雨が降り始めたら、Discord に知らせる</h3>
-      <p>「22:40ごろまで降りそう」まで添えて通知する rain-alert を作りました。翌日にはリビングの掲示板にも出るようにしています。まだ試運転中です。</p>
-      <p class="more"><a href="https://github.com/EngineMaker/rain-alert">リポジトリ</a></p>
-    </li>
-    <li>
-      <span class="when">2026-09-22〜</span>
-      <h3>『銃・病原菌・鉄』を AI と読む</h3>
-      <p>難しい本を読み切るために、章に入る前に要約を出してもらって、寄り道も楽しみながら読んでいます。いまは第1章です。</p>
-      <p class="more"><a href="https://github.com/mktoho12/reading-guns-germs-steel">読書の記録</a></p>
-    </li>
-    <li>
-      <span class="when">2026-09-20</span>
-      <h3>シェアハウスのリビングに電光掲示板</h3>
-      <p>余っていた古い iPad を掲示板にしました。1日で動くところまで作って、そのあとは住人の声を聞きながら直しています。</p>
-      <p class="more"><a href="https://signboard.emaker.dev">掲示板</a><a href="https://github.com/EngineMaker/signboard">リポジトリ</a></p>
-    </li>
-    <li>
-      <span class="when">2026-08-23</span>
-      <h3>podcast「シェアハウス管理人の正しいラジオ」#21</h3>
-      <p>シェアハウスの管理人と、1時間を超えて話す番組です。#21「正しいシェアハウス」まで配信しています。</p>
-      <p class="more"><a href="https://open.spotify.com/show/3Qh0RcmFTJ19zCfLIjixzv">Spotify で聴く</a></p>
-    </li>
-  </ol>
+<header class="hd"><div class="wrap hd-in">
+<p class="nm"><img src="/assets/icon.png" alt="" width="40" height="40">mktoho</p>
+<h1 class="lede">AIに<wbr>小さな<wbr>システムを<wbr>作って<wbr>もらって、<wbr>シェアハウスで<wbr>運用しています</h1>
+<p class="desc">大学で<wbr>勉強しながら、<wbr>本を<wbr>読んだり、<wbr>ゲームを<wbr>したり、<wbr>ノートに<wbr>書きながら<wbr>考えたりしています</p>
+<p class="links"><a href="https://github.com/mktoho12">GitHub <span>github.com/mktoho12</span></a><a href="https://x.com/mktoho12">X <span>@mktoho12</span></a><a href="https://bsky.app/profile/mktoho.dev">Bluesky <span>@mktoho.dev</span></a><span class="mail">mk@mktoho.dev</span></p>
+</div></header>
+<main class="wrap">
+<section class="recent" aria-labelledby="h-recent"><h2 id="h-recent">最近のこと</h2><ul>
+<li><time>2026-11-16</time><a href="https://claude.ai/artifact/RyMWXqYr7wxr5p43RGFiZq">アメリカの<wbr>50州を<wbr>紹介する、<wbr>3分の<wbr>動く<wbr>映像を<wbr> AI に<wbr>作って<wbr>もらった</a></li>
+<li><time>2026-11-04</time><a href="https://github.com/EngineMaker/world-issue-tracker">World Issue Tracker が<wbr> CPU を<wbr>使いすぎていたのを<wbr>直した<wbr>（AI の<wbr>クローラーが<wbr>地図の<wbr> URL を<wbr>際限なく<wbr>辿っていた）</a></li>
+<li><time>2026-10-23</time><a href="https://github.com/pukiwiki/pukiwiki/pull/7">PukiWiki の<wbr>本家に、<wbr>PHP 8.2〜8.5 で<wbr>出る<wbr>警告を<wbr>直す<wbr>修正を<wbr>送った</a></li>
+<li><time>2026-10-21</time><a href="https://github.com/mktoho12/yt2txt">YouTube の<wbr>字幕を<wbr>テキストに<wbr>する<wbr> yt2txt を<wbr>作った</a></li>
+<li><time>2026-10-19</time><a href="https://www.youtube.com/@zundamon-sharehouse">ずんだもんの<wbr> YouTube チャンネルを<wbr>始めた<wbr>（1週間で<wbr>動画5本、<wbr>ショート5本）</a></li>
+<li><time>2026-10-11〜</time><a href="https://github.com/mktoho12/linear-algebra-2-with-ai">大学の<wbr>線形代数2を<wbr> AI と<wbr>勉強している<wbr>（90セクション中23まで）</a></li>
+<li><time>2026-10-04</time><a href="/notes/ubuntu-26-04/">家の<wbr>サーバーを<wbr> Ubuntu 26.04 に<wbr>上げた</a></li>
+<li><time>2026-09-30</time><a href="https://github.com/mktoho12/videos">麦茶の<wbr>動画を<wbr>1本作った<wbr>（Remotion と、<wbr>作り方の<wbr>型を<wbr>まとめた<wbr> motion‑kit）</a></li>
+</ul>
+<details><summary>それより前</summary><ul>
+<li><time>2026-09-29</time><a href="https://github.com/EngineMaker/rain-alert">雨が<wbr>降り始めたら<wbr> Discord に<wbr>知らせる<wbr> rain‑alert を<wbr>作った</a></li>
+<li><time>2026-09-22〜</time><a href="https://github.com/mktoho12/reading-guns-germs-steel">『銃・病原菌・鉄』を<wbr> AI と<wbr>読み始めた</a></li>
+<li><time>2026-09-20</time><a href="https://signboard.emaker.dev">余っていた<wbr> iPad で、<wbr>リビングの<wbr>電光掲示板を<wbr>作った</a></li>
+<li><time>2026-08-23</time><a href="https://open.spotify.com/show/3Qh0RcmFTJ19zCfLIjixzv">podcast<wbr>「シェアハウス管理人の<wbr>正しい<wbr>ラジオ」<wbr>#21 を<wbr>配信した</a></li>
+</ul></details>
 </section>
-
-<section class="wrap">
-  <h2>8月にやっていたこと</h2>
-  <p class="sub">ループエンジニアリング — 人間を、プロンプトを打つ役から外す</p>
-
-  <div class="feat">
-    <h3>loop-engineering</h3>
-    <p class="tagline">AIにプロンプトを打つ「仕組み」のほうを設計する</p>
-    <p>
-      発見ループと修正ループの2本を GitHub Issue でつなぎ、<strong>launchd で毎時、無人で回しました。</strong>
-      発見ループが問題を見つけて Issue を立て、修正ループがそれを拾って worktree の中で直し、PR を出す。
-      人間の仕事はマージボタンを押すことだけになります。
-    </p>
-
-    <div class="stats">
-      <div class="stat"><span class="v">10</span><span class="k">マージされたPR</span></div>
-      <div class="stat"><span class="v">3</span><span class="k">実在の脆弱性を発見</span></div>
-      <div class="stat"><span class="v">$50</span><span class="k">1日分のコスト</span></div>
-      <div class="stat"><span class="v">7日</span><span class="k">静かに停止していた</span></div>
-    </div>
-
-    <p>
-      おもしろいのは、うまくいった話より<strong>壊れ方のほう</strong>でした。
-      最初の実験では<strong>停止条件が3箇所とも壊れていて</strong>、test も lint も typecheck も全部緑なのに、
-      「何も実装していないコード」が通り、重大な認可欠陥がそのまま見逃されました。
-      機械的な検証は「壊れていないこと」しか見てくれない。
-    </p>
-    <p>
-      無人運転で一番怖かったのは、<strong>失敗が静かに永続化すること</strong>です。
-      API接続が切れて空のブランチが残り、それが「着手済み」と誤判定されて、その Issue は永久に処理されなくなりました。
-      ループは exit 0 を返し続けていたので、<strong>7日間、誰も気づきませんでした。</strong>
-    </p>
-    <p style="margin-bottom:0">
-      調査ノートから実験ログ、無人運転の障害記録、復旧までを全部残しています。
-      → <a href="https://github.com/mktoho12/loop-engineering" style="color:var(--accent);font-weight:700">リポジトリを見る</a>
-    </p>
-  </div>
+<section class="intr" aria-labelledby="h-intr"><h2 id="h-intr">興味があること</h2>
+<p class="sub">それぞれ、<wbr>いまやっている<wbr>ことと、<wbr>知りたい<wbr>ことです</p>
+<article class="item"><h3>シェアハウスのコミュニティ</h3><dl>
+<div><dt>いま</dt><dd>シェアハウスに<wbr>住んでいて、<wbr>リビングの<wbr>掲示板や<wbr>雨の<wbr>通知を<wbr>作って<wbr>運用しています<br>管理人と<wbr> podcast も<wbr>やっています</dd></div>
+<div><dt>知りたい</dt><dd>ほかの<wbr>シェアハウスや<wbr>コミュニティで、<wbr>住人どうしの<wbr>やりとりを<wbr>どう回しているか<br>運営している<wbr>人の<wbr>話も、<wbr>住んでいる<wbr>人の<wbr>話も</dd></div>
+</dl>
+</article>
+<article class="item"><h3>ゲーム</h3><dl>
+<div><dt>いま</dt><dd>HD‑2D や、<wbr>ノベルゲームっぽい<wbr>ものを<wbr>よく<wbr>遊んでいます</dd></div>
+<div><dt>知りたい</dt><dd>その<wbr>系統の<wbr>おすすめ</dd></div>
+<div><dt>間に合っている</dt><dd>大手の<wbr> AAA 大作<br>長く<wbr>遊ぶと<wbr>疲れてしまうようになりました</dd></div>
+</dl>
+</article>
+<article class="item"><h3>AI</h3><dl>
+<div><dt>いま</dt><dd>AI に<wbr>小さな<wbr>システムを<wbr>作って<wbr>もらって、<wbr>生活の<wbr>中で<wbr>使っています<br>AI の<wbr>ことは<wbr> AI に<wbr>聞くのが<wbr>一番だと<wbr>思っています</dd></div>
+<div><dt>知りたい</dt><dd>実際に<wbr> AI を<wbr>使って、<wbr>こういう<wbr>ことを<wbr>やった、<wbr>作った、と<wbr>いう<wbr>話<br>それを<wbr>やっている<wbr>人</dd></div>
+<div><dt>間に合っている</dt><dd>AI の<wbr>ニュースや<wbr>モデルの<wbr>比較など、<wbr>自分で<wbr>使っていなくても<wbr>言える、<wbr>聞いた<wbr>話</dd></div>
+</dl>
+</article>
+<article class="item"><h3>読書</h3><dl>
+<div><dt>いま</dt><dd>大学に<wbr>入ってから<wbr>本を<wbr>読むことが<wbr>増えました<br>いまは<wbr>『銃・病原菌・鉄』を<wbr> AI と<wbr>読んでいます</dd></div>
+<div><dt>知りたい</dt><dd>AI や<wbr>コンピューター以外の<wbr>本の<wbr>おすすめ</dd></div>
+</dl>
+</article>
+<article class="item"><h3>手書き</h3><dl>
+<div><dt>いま</dt><dd>きれいに<wbr>まとめる<wbr>ためではなく、<wbr>頭の<wbr>中を<wbr>整理する<wbr>ために<wbr>ノートに<wbr>書きながら<wbr>考えています<br>大学の<wbr>勉強で<wbr>効き目を<wbr>実感して、<wbr>ゲームや<wbr>読書、<wbr>仕事で<wbr>ややこしい<wbr>話を<wbr>飲み込む<wbr>ときにも<wbr>使うようになりました</dd></div>
+<div><dt>知りたい</dt><dd>同じように<wbr>書いて<wbr>考えている<wbr>人の、<wbr>やり方や<wbr>道具の<wbr>話</dd></div>
+</dl>
+</article>
+<article class="item"><h3>散歩</h3><dl>
+<div><dt>いま</dt><dd>フィールドワークと<wbr>健康を<wbr>兼ねて、<wbr>一人で<wbr>よく<wbr>歩いています<br>山奥で<wbr>森しかないような<wbr>所でもない<wbr>限り、<wbr>どんな<wbr>町にも<wbr>歴史や<wbr>文化が<wbr>あるはずで、<wbr>それを<wbr>探しながら<wbr>歩くのが<wbr>楽しいです</dd></div>
+</dl>
+</article>
+<div class="contact"><p class="lbl">連絡先</p><p>メール mk@mktoho.dev / <a href="https://x.com/mktoho12">X @mktoho12</a> / <a href="https://bsky.app/profile/mktoho.dev">Bluesky @mktoho.dev</a></p></div>
 </section>
-
-<section class="wrap">
-  <h2>つくったもの</h2>
-  <p class="sub">動いているもの、止まっているもの、実験で終わったもの。</p>
-
-  <div class="grid">
-
-    <a class="proj" href="https://github.com/EngineMaker/signboard">
-      <div class="top"><h3>リビングの電光掲示板</h3><span class="badge live">稼働中</span></div>
-      <p>シェアハウスのリビングに置いた古い iPad を、お知らせの掲示板に。Discord のスラッシュコマンド、管理画面、API の3通りで更新できます。MVP は1日で作り、新着を目立たせる、画面を光らせるといった改善は、住人に言われてから足しました。</p>
-      <div class="stack"><span>TypeScript</span><span>Hono</span><span>SQLite</span><span>discord.js</span></div>
-    </a>
-
-    <a class="proj" href="https://github.com/EngineMaker/rain-alert">
-      <div class="top"><h3>雨の降り始め・止み通知</h3><span class="badge pause">試運転中</span></div>
-      <p>降り始めと止みを Discord に通知して、「何時ごろまで降りそうか」も添えます。60分先までの予報と気象庁の降水短時間予報を組み合わせて、5分ごとに確認しています。掲示板にも出ます。</p>
-      <div class="stack"><span>Rust</span><span>systemd timer</span><span>Discord</span></div>
-    </a>
-
-    <a class="proj" href="https://github.com/EngineMaker/world-issue-tracker">
-      <div class="top"><h3>World Issue Tracker</h3><span class="badge live">稼働中</span></div>
-      <p>「地球のバグを、みんなで可視化して、みんなで直す」。ソフトウェア開発の Issue Tracker を現実世界に持ち込んで、個人の困りごとから国際問題までを同じ仕組みで扱う。上のループが実際に働いている対象でもあります。</p>
-      <div class="stack"><span>Hono</span><span>Next.js</span><span>Cloudflare Workers</span><span>D1</span><span>Clerk</span></div>
-    </a>
-
-    <a class="proj" href="https://sumahokau.mktoho.dev/">
-      <div class="top"><h3>スマホを買うまでの全記録</h3><span class="badge live">公開中</span></div>
-      <p>文字を大きくして使いたい自分用の大画面Androidと、開発検証用のiPhone。条件の違う2台を予算15万円で選び切るまで。前提が2回ひっくり返って結論が変わった過程も、検索が間違った価格を返した事例も、そのまま残しました。</p>
-      <div class="stack"><span>Claude Code</span><span>GitHub Pages</span></div>
-    </a>
-
-    <a class="proj" href="https://github.com/mktoho12/university-courses">
-      <div class="top"><h3>AIと大学の授業を進める</h3><span class="badge live">進行中</span></div>
-      <p>解析学をAIと一緒に。ポイントは「教わる」のではなく<strong>教わり方を設計する</strong>こと。答えを即出しさせず、自分の仮説を先に言ってから欠落を診断させる。過去に線形代数で挫折した原因を言語化して、そこから逆算しました。</p>
-      <div class="stack"><span>Markdown</span><span>Obsidian</span><span>matplotlib</span></div>
-    </a>
-
-    <a class="proj" href="https://github.com/mktoho12/discord-reaction-stats">
-      <div class="top"><h3>Discord リアクション集計</h3><span class="badge live">運用中</span></div>
-      <p>コミュニティのリアクションを「もらった数 / 付けた数」で月次集計してレポート化。毎月1日に自動で走ります。日本時間の朝6時を月の始まりにする、自己リアクションは除く——人を数字にするときの気遣いのほうが設計の本体でした。</p>
-      <div class="stack"><span>TypeScript</span><span>discord.js</span><span>Neon</span><span>Cloudflare Pages</span></div>
-    </a>
-
-    <a class="proj" href="https://github.com/mktoho12/try-multi-agent">
-      <div class="top"><h3>12役のマルチエージェント</h3><span class="badge pause">実験終了</span></div>
-      <p>PM・アーキテクト・バックエンド・法務・税務まで12の役割を作って、7フェーズのパイプラインで協調させ、シェアハウス管理システムを作らせる実験。動くところまでは行きました。この「大掛かりな組織」路線から、小さいループの反復へ考えが変わっていきます。</p>
-      <div class="stack"><span>Python</span><span>Claude API</span><span>tool_use</span></div>
-    </a>
-
-    <a class="proj" href="https://github.com/mktoho12/gomi-discord-bot">
-      <div class="top"><h3>ごみの日 通知Bot</h3><span class="badge live">稼働中</span></div>
-      <p>収集日の前日18時に「明日は可燃ごみ」とDiscordへ流すだけのBot。自分が忘れるから作りました。サーバーは立てず、GitHub Actions の cron だけで無料で動かしています。小さいけれど、生活の困りごとが実際に消えました。</p>
-      <div class="stack"><span>Node.js</span><span>GitHub Actions</span><span>Discord Webhook</span></div>
-    </a>
-
-  </div>
+<section class="made" aria-labelledby="h-made"><h2 id="h-made">作ったもの</h2>
+<h3 class="grp">家で使っているもの</h3><ul>
+<li><a class="what" href="https://github.com/EngineMaker/signboard">リビングの<wbr>電光掲示板</a><span class="how">古い<wbr> iPad を、<wbr>住人への<wbr>お知らせを<wbr>出す掲示板に<wbr>しました<br>Discord からも<wbr>書き込めます</span></li>
+<li><a class="what" href="https://github.com/EngineMaker/rain-alert">雨の<wbr>通知</a><span class="how">降り始めと<wbr>止みを<wbr> Discord に<wbr>知らせて、<wbr>何時ごろまで<wbr>降りそうかも<wbr>添えます</span></li>
+<li><a class="what" href="https://github.com/mktoho12/gomi-discord-bot">ごみの<wbr>日の<wbr>通知</a><span class="how">収集日の<wbr>前日18時に<wbr>「明日は<wbr>可燃ごみ」と<wbr>流します<br>自分が<wbr>忘れるので</span></li>
+<li><a class="what" href="https://github.com/mktoho12/discord-reaction-stats">Discord の<wbr>リアクション集計</a><span class="how">コミュニティの<wbr>リアクションを<wbr>月ごとに<wbr>まとめます</span></li>
+</ul>
+<h3 class="grp">記録として残したもの</h3><ul>
+<li><a class="what" href="https://sumahokau.mktoho.dev/">スマホを<wbr>買うまでの<wbr>全記録</a><span class="how">2台を<wbr>予算15万円で<wbr>選ぶまで<br>途中で<wbr>結論が<wbr>2回変わった<wbr>過程も<wbr>残しました</span></li>
+<li><a class="what" href="https://github.com/mktoho12/linear-algebra-2-with-ai">線形代数2を<wbr> AI と<wbr>学ぶ<wbr>記録</a><span class="how">教材は<wbr>載せず、<wbr>学び方の<wbr>ルールと、<wbr>自分で<wbr>気づいた<wbr>ことだけを<wbr>残しています</span></li>
+<li><a class="what" href="https://github.com/mktoho12/reading-guns-germs-steel">『銃・病原菌・鉄』の<wbr>読書記録</a><span class="how">章に<wbr>入る<wbr>前に<wbr>要約を<wbr>出して<wbr>もらいながら<wbr>読んでいます</span></li>
+<li><a class="what" href="https://www.youtube.com/@zundamon-sharehouse">ずんだもんの<wbr>動画</a><span class="how">シェアハウスの<wbr>暮らしを<wbr>題材に<wbr>した、<wbr>ずんだもんの<wbr>短い<wbr>動画です</span></li>
+<li><a class="what" href="https://github.com/mktoho12/motion-kit">麦茶の<wbr>動画と<wbr> motion‑kit</a><span class="how">リビングの<wbr>画面で<wbr>流す15秒の<wbr>動画と、<wbr>その<wbr>作り方の<wbr>型</span></li>
+<li><a class="what" href="/notes/ubuntu-26-04/">家の<wbr>サーバーを<wbr> Ubuntu 26.04 に<wbr>上げた<wbr>記録</a><span class="how">途中で<wbr> GPU の<wbr>ドライバーが<wbr>消えた<wbr>話と、<wbr>AI との<wbr>分担</span></li>
+</ul>
+<h3 class="grp">実験</h3><ul>
+<li><a class="what" href="https://github.com/mktoho12/loop-engineering">無人で<wbr>回る<wbr>開発ループ<wbr>（8月）</a><span class="how">AI が<wbr>問題を<wbr>見つけて<wbr>直すループを<wbr>毎時、<wbr>無人で<wbr>回しました<br>7日間止まっていたのに<wbr>誰も<wbr>気づかなかった<wbr>話も<wbr>残っています</span></li>
+<li><a class="what" href="https://github.com/EngineMaker/world-issue-tracker">World Issue Tracker</a><span class="how">上の<wbr>ループが<wbr>実際に<wbr>開発していた<wbr> Web サービスです</span></li>
+<li><a class="what" href="https://github.com/mktoho12/try-multi-agent">12役の<wbr>マルチエージェント</a><span class="how">12の<wbr>役割の<wbr> AI を<wbr>協調させてみた<wbr>実験<br>ここから<wbr>小さい<wbr>ループの<wbr>ほうへ<wbr>考えが<wbr>変わりました</span></li>
+</ul>
 </section>
-
-<section class="wrap">
-  <h2>やってみて分かったこと</h2>
-  <p class="sub">AIと長く作業して、繰り返し効いてきた考え方。</p>
-
-  <div class="principles">
-    <div class="pr">
-      <h3>停止条件が嘘をつくと、ループは「何も検証せずに緑を返す装置」になる</h3>
-      <p>回す前に、止まる仕組みのほうが本当に動くか確かめる。テストが緑であることと、正しいことは別物でした。</p>
-    </div>
-    <div class="pr">
-      <h3>作り手と検証役は分ける</h3>
-      <p>同じエージェントに作らせて確認させると、自分の作ったものを甘く見ます。役割を分けるのが一番効きました。</p>
-    </div>
-    <div class="pr">
-      <h3>失敗は、派手に落ちるより静かに残るほうが怖い</h3>
-      <p>無人で回すなら、成功の観測より「失敗が観測されているか」を先に作る。7日間気づかなかった話がこれです。</p>
-    </div>
-    <div class="pr">
-      <h3>過程を残すと、結論が変わったときに理由が追える</h3>
-      <p>買い物でも学習でも同じでした。「なぜその案を捨てたか」を書いておかないと、同じ検討を何度もやり直します。</p>
-    </div>
-  </div>
-</section>
-
 </main>
-
-<footer class="wrap">
-  <p>
-    ここに書いてあるものはだいたい GitHub に置いてあります →
-    <a href="https://github.com/mktoho12">github.com/mktoho12</a>
-  </p>
-  <p style="margin:0">© mktoho</p>
+<footer class="ft wrap">
+<p>© mktoho<br>このサイトは Claude と一緒に作りました</p>
 </footer>
-
 </body>
 </html>

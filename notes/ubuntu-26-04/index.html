@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>家のサーバーを Ubuntu 26.04 に上げました | mktoho</title>
+<meta name="description" content="2026年10月に、家で使っているサーバーの Ubuntu を 24.04 LTS から 26.04 LTS に上げました">
+<meta property="og:title" content="家のサーバーを Ubuntu 26.04 に上げました | mktoho">
+<meta property="og:description" content="2026年10月に、家で使っているサーバーの Ubuntu を 24.04 LTS から 26.04 LTS に上げました">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mktoho.dev/notes/ubuntu-26-04/">
+<meta property="og:image" content="https://mktoho.dev/og.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@mktoho12">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+
+<header class="hd hd-note"><div class="wrap hd-in">
+<p class="nm"><a href="/"><img src="/assets/icon.png" alt="" width="40" height="40">mktoho</a></p>
+<h1 class="lede">家の<wbr>サーバーを<wbr> Ubuntu 26.04 に<wbr>上げました</h1>
+</div></header><main class="wrap prose">
+<p>2026年10月に、<wbr>家で<wbr>使っている<wbr>サーバーの<wbr> Ubuntu を<wbr> 24.04 LTS から<wbr> 26.04 LTS に<wbr>上げました<br />
+地味な<wbr>作業ですが、<wbr>途中で<wbr>一度<wbr> GPU の<wbr>ドライバーが<wbr>消えたので、<wbr>その<wbr>話を<wbr>中心に<wbr>残しておきます<br />
+作業は<wbr> Claude<wbr>（AI）と<wbr>一緒に<wbr>進めました</p>
+<h2>何を<wbr>したか</h2>
+<p>流れは<wbr>次の<wbr>4段階です</p>
+<ol>
+<li>事前確認と<wbr>準備</li>
+<li>24.04 の<wbr>中で<wbr>最新に<wbr>して<wbr>再起動</li>
+<li><code>do-release-upgrade</code> で<wbr> 26.04 に<wbr>上げて<wbr>再起動</li>
+<li>無効に<wbr>なった<wbr>追加リポジトリを<wbr>戻して<wbr>確認</li>
+</ol>
+<p>再<wbr>起動は<wbr>2回でした<br />
+作業は<wbr>4時間ほどで<wbr>終わり、<wbr>最後は<wbr>サービスも<wbr>タイマーも<wbr>元ど<wbr>おりに<wbr>動いています</p>
+<h3>事前確認で<wbr>わかった<wbr>こと</h3>
+<p>追加した<wbr>リポジトリ、<wbr>動いている<wbr>サービスと<wbr>タイマー、<wbr>ディスクの<wbr>空き、<wbr>未適用の<wbr>更新を<wbr>先に<wbr>調べました<br />
+そこで、<wbr>GPU の<wbr>ドライバーが<wbr>すでに<wbr>動いていないことに<wbr>気づきました<br />
+NVIDIA の<wbr>ドライバーが<wbr> 570 系と<wbr> 580 系の<wbr>2つ<wbr>混ざっていて、<wbr>いまの<wbr>カーネル用の<wbr>モジュールが<wbr>入っていなかったのが<wbr>原因でした<br />
+アップグレードの<wbr>前に、<wbr>570 系を<wbr>外して<wbr> 580 系だけに<wbr>する<wbr>ことにしました</p>
+<p><code>/etc</code> と<wbr>パッケージの<wbr>一覧は、<wbr>念の<wbr>ためバックアップしておきました</p>
+<h2>どこで<wbr>詰まったか</h2>
+<h3>autoremove で<wbr> GPU の<wbr>ドライバーが<wbr>消えた</h3>
+<p>570 系を<wbr>消した<wbr>あと、<wbr>24.04 の<wbr>中で<wbr> <code>apt full-upgrade</code> と<wbr> <code>apt autoremove</code> を<wbr>しました<br />
+再<wbr>起動してみると、<code>nvidia-smi</code> が<wbr>見つからなくなっていました</p>
+<p>調べると、<code>autoremove</code> が<wbr> 580 系の<wbr>ドライバー本体まで<wbr>消していました<br />
+580 は<wbr>「ほかの<wbr>パッケージの<wbr>ついでに<wbr>入った<wbr>もの」と<wbr>いう<wbr>扱いに<wbr>なっていました<br />
+570 を<wbr>消した<wbr>ことで、<wbr>580 を<wbr>必要と<wbr>する<wbr>パッケージが<wbr>なくなり、<wbr>「もう<wbr>要らない<wbr>もの」と<wbr>判断されたようです</p>
+<p>570 を<wbr>消す前に<wbr> <code>apt-get -s purge</code> で<wbr>模擬実行は<wbr>していて、<wbr>その<wbr>ときは<wbr> 580 が<wbr>残る<wbr>ことを<wbr>確かめていました<br />
+ただ、<wbr>その<wbr>あとに<wbr>続く<wbr> <code>autoremove</code> までは<wbr>確かめていませんでした</p>
+<h3>追加リポジトリが<wbr>自動では<wbr>戻らなかった</h3>
+<p>これは<wbr>想定していた<wbr>ことです<br />
+<code>do-release-upgrade</code> は、<wbr>追加した<wbr>リポジトリを<wbr>全部<wbr>無効に<wbr>します<br />
+新しい<wbr>書式<wbr>（<code>.sources</code>）で<wbr>書かれていた<wbr>ものは<wbr> <code>Enabled: no</code> が<wbr>付いただけでした<br />
+古い<wbr>書式<wbr>（<code>.list</code>）の<wbr>ものは<wbr>変換されず、<code>.list.disabled</code> と<wbr>いう<wbr>名前に<wbr>変わっていました</p>
+<h3>docker-compose v1 が<wbr>消えた</h3>
+<p>26.04 には<wbr>古い<wbr> docker-compose<wbr>（v1）が<wbr>ないので、<wbr>アップグレードの<wbr>途中で<wbr>削除されました<br />
+compose を<wbr>使っている<wbr>場所は<wbr>なかったので、<wbr>影響は<wbr>ありませんでした</p>
+<h2>どう<wbr>直したか</h2>
+<h3>ドライバー</h3>
+<p>ドライバーを<wbr>入れ直しました</p>
+<pre><code class="language-sh">sudo apt-get install -y nvidia-driver-580-open linux-modules-nvidia-580-open-generic-hwe-24.04
+</code></pre>
+<p><code>apt install</code> で<wbr>入れたので、<wbr>今度は<wbr>「自分で<wbr>入れた<wbr>もの」<wbr>扱いに<wbr>なります<br />
+これで、<wbr>この<wbr>先 <code>autoremove</code> で<wbr>消える<wbr>ことは<wbr>ありません<br />
+入れ直した<wbr>あと、<code>apt-get -s autoremove</code> を<wbr>動かして、<wbr>何も<wbr>消えない<wbr>ことを<wbr>確かめました</p>
+<p>26.04 にも<wbr>同じ<wbr> 580 系の<wbr>パッケージが<wbr>ある<wbr>ことを<wbr>先に<wbr>確かめてから、<wbr>本番の<wbr>アップグレードに<wbr>進みました</p>
+<h3>リポジトリ</h3>
+<p>無効に<wbr>なった<wbr>ものは、<code>.sources</code> の<wbr>書式で<wbr>書き直しました<br />
+名前に<wbr>バージョン名が<wbr>入っている<wbr>もの<wbr>（たとえば<wbr> VPN ソフトの<wbr>リポジトリ）は、<code>noble</code> を<wbr> <code>resolute</code> に<wbr>変えました</p>
+<pre><code>Types: deb
+URIs: https://example.com/ubuntu
+Suites: resolute
+Components: main
+Signed-By: /usr/share/keyrings/example-keyring.gpg
+</code></pre>
+<p>書き直した<wbr>ファイルは、<wbr>いきなり本物の<wbr>設定に<wbr>置かずに、<wbr>別の<wbr>場所で<wbr>一度<wbr> <code>apt update</code> を<wbr>通して、<wbr>取得できる<wbr>ことを<wbr>確かめてから<wbr>入れました<br />
+最後に<wbr> <code>apt-get -s full-upgrade</code> と<wbr> <code>apt-get -s autoremove</code> を<wbr>模擬実行し、<wbr>思わぬ<wbr>ものが<wbr>消えない<wbr>ことを<wbr>見てから<wbr>完了に<wbr>しました</p>
+<h3>設定ファイルの<wbr>質問</h3>
+<p>アップグレードの<wbr>途中で<wbr>「設定ファイルを<wbr>新しい<wbr>ものに<wbr>置き換えるか」と<wbr>聞かれます<br />
+自分で<wbr>手を<wbr>入れている<wbr> Samba の<wbr>設定は<wbr>「今のまま」を<wbr>選びました</p>
+<h2>AI と<wbr>どう<wbr>分担したか</h2>
+<p>Claude には、<wbr>主に<wbr>次の<wbr>ことを<wbr>頼みました</p>
+<ul>
+<li>事前確認<wbr>（リポジトリ、<wbr>サービス、<wbr>ディスク、<wbr>更新の<wbr>数を<wbr>調べる）</li>
+<li>計画を<wbr>立てて、<wbr>先に<wbr>見せて<wbr>もらう</li>
+<li>手順ごとの<wbr>スクリプトを<wbr>書く</li>
+<li><code>apt-get -s</code> での<wbr>模擬実行と、<wbr>その<wbr>結果の<wbr>読み取り</li>
+<li>終わった<wbr>あとの<wbr>動作確認と、<wbr>作業ログの<wbr>記録</li>
+</ul>
+<p>自分で<wbr>やったのは<wbr>次の<wbr>ことです</p>
+<ul>
+<li>sudo の<wbr>パスワードが<wbr>要る<wbr>スクリプトの<wbr>実行</li>
+<li><code>do-release-upgrade</code> の<wbr>途中の<wbr>質問への<wbr>回答</li>
+<li>再起動するかどうかの<wbr>判断</li>
+</ul>
+<p>最初に<wbr>「いきなり始めない、<wbr>まず<wbr>計画を<wbr>見せる」と<wbr>決めて<wbr>おいたのが<wbr>よかったです<br />
+スクリプトは<wbr>中身を<wbr>読んでから、<wbr>自分の<wbr>端末で<wbr>実行しました</p>
+<p>一方で、<wbr>ドライバーが<wbr>消えた<wbr>件は、<wbr>AI も<wbr>自分も<wbr> <code>autoremove</code> の<wbr>影響を<wbr>見落と<wbr>していました<br />
+模擬実行は<wbr>1つの<wbr>コマンドだけでなく、<wbr>その<wbr>あとに<wbr>続く<wbr>コマンドまで<wbr>通しで<wbr>見る必要が<wbr>ありました</p>
+<h2>次に<wbr>やる<wbr>ときの<wbr>メモ</h2>
+<ul>
+<li>パッケージを<wbr>消す<wbr>ときは、<wbr>その<wbr>あとの<wbr> <code>autoremove</code> まで<wbr> <code>apt-get -s</code> で<wbr>確かめる</li>
+<li><code>do-release-upgrade</code> の<wbr>あとは、<wbr>追加リポジトリを<wbr>書き直す<wbr>前提で<wbr>時間を<wbr>とって<wbr>おく</li>
+<li>バージョン名が<wbr>入っている<wbr>リポジトリは、<wbr>新しい<wbr>バージョン名に<wbr>変える</li>
+<li>手を<wbr>入れた<wbr>設定ファイルは<wbr>「今のまま」を<wbr>選ぶ</li>
+<li>WezTerm の<wbr>タブで<wbr>作業すれば<wbr> tmux は<wbr>要らなかった</li>
+<li>ただし再<wbr>起動すると、<wbr>開いている<wbr>タブは<wbr>すべて<wbr>落ちる</li>
+</ul>
+<p class="back"><a href="/">トップに戻る</a></p></main>
+<footer class="ft wrap">
+<p>© mktoho<br>このサイトは Claude と一緒に作りました</p>
+</footer>
+</body>
+</html>

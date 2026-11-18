@@ -1,0 +1,103 @@
+/* mktoho.dev
+   方眼ノート: 冒頭だけノートの方眼を敷く。色はブルーブラックのインク1色。書体は BIZ UDPゴシックだけ
+   1段組で左寄せ。個性は冒頭の方眼の1か所に絞り、ほかは線と余白だけで組む */
+:root{
+  --bg:#fbfcfd; --paper:#ffffff;
+  --ink:#1e2230; --ink-2:#575d6c; --ink-3:#7c8292;
+  --line:#dde2ea; --grid:rgba(50,80,150,.13);
+  --acc:#263d74;
+  --code:#f1f3f7;
+  --font:"BIZ UDPGothic","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#14161c; --paper:#1b1e26;
+  --ink:#e4e7ee; --ink-2:#a2a8b6; --ink-3:#848a99;
+  --line:#2c313c; --grid:rgba(140,170,230,.10);
+  --acc:#a3b7ea;
+  --code:#1f232c;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14161c; --paper:#1b1e26;
+  --ink:#e4e7ee; --ink-2:#a2a8b6; --ink-3:#848a99;
+  --line:#2c313c; --grid:rgba(140,170,230,.10);
+  --acc:#a3b7ea;
+  --code:#1f232c;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.9;
+  word-break:keep-all;overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+p,ul,ol,dl,dd,figure,h1,h2,h3{margin:0}
+ul{list-style:none;padding:0}
+a{color:var(--acc);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:720px;margin-inline:auto;
+  padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+/* 冒頭（方眼） */
+.hd{background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:20px 20px;background-position:-1px -1px;border-bottom:1px solid var(--line)}
+.hd-in{display:grid;gap:16px;padding-block:60px 44px}
+.nm{display:flex;align-items:center;gap:10px;font-size:.95rem;font-weight:700;color:var(--acc);letter-spacing:.06em}
+.nm a{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nm img{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--paper)}
+.lede{font-size:clamp(1.45rem,4.2vw,2rem);line-height:1.55;font-weight:700}
+.desc{color:var(--ink-2)}
+.links{display:flex;flex-wrap:wrap;gap:4px 20px;font-size:.92rem}
+.links a span,.links .mail{color:var(--ink-2)}
+
+/* 節 */
+section{padding-block:48px 8px}
+h2{font-size:1.3rem;font-weight:700;margin-bottom:18px}
+.sub{color:var(--ink-2);margin:-8px 0 20px;font-size:.92rem}
+time{color:var(--ink-2);font-variant-numeric:tabular-nums;font-size:.9rem;white-space:nowrap}
+
+/* 最近のこと */
+.recent li{display:grid;grid-template-columns:7.6em minmax(0,1fr);gap:0 18px;padding-block:7px;border-bottom:1px dotted var(--line)}
+.recent li>a{color:var(--ink);text-decoration-color:var(--acc)}
+.recent li>span{color:var(--ink)}
+.recent details{margin-top:12px}
+.recent summary{cursor:pointer;color:var(--ink-2);font-size:.9rem;width:fit-content}
+.recent details ul{margin-top:6px}
+
+/* 興味があること */
+.item{display:grid;grid-template-columns:minmax(0,1fr);gap:10px 28px;padding-block:24px;border-top:1px solid var(--line)}
+.item.has-note{grid-template-columns:minmax(0,1fr) 128px}
+.item h3{grid-column:1/-1;font-size:1.1rem;font-weight:700}
+.item dl{display:grid;gap:10px}
+.item dt{font-size:.75rem;color:var(--acc);letter-spacing:.08em;font-weight:700}
+.note img{display:block;width:100%;height:auto;border:1px solid var(--line);background:var(--paper);transform:rotate(1.2deg)}
+.contact{border-top:1px solid var(--acc);padding-top:16px;margin-top:8px}
+.lbl{font-size:.75rem;color:var(--acc);letter-spacing:.08em;font-weight:700}
+
+/* 作ったもの */
+.grp{font-size:.78rem;color:var(--acc);letter-spacing:.08em;margin:22px 0 6px;font-weight:700}
+.made li{display:grid;grid-template-columns:minmax(0,13em) minmax(0,1fr);gap:2px 20px;padding-block:9px;border-top:1px dotted var(--line)}
+.made .what{font-weight:700;color:var(--ink);text-decoration-color:var(--acc)}
+.made .how{color:var(--ink-2)}
+
+/* 記事ページ */
+.hd-note .hd-in{padding-block:40px 32px}
+.prose{padding-block:36px 0}
+.prose h2{margin:40px 0 12px}
+.prose h3{font-size:1.05rem;margin:28px 0 8px}
+.prose p,.prose ol,.prose ul{margin:0 0 16px}
+.prose ol{padding-left:1.6em}
+.prose ul{list-style:disc;padding-left:1.4em}
+.prose li{margin-block:2px}
+.prose code{font-family:var(--mono);font-size:.86em;background:var(--code);padding:1px 5px;border-radius:3px;word-break:break-all}
+.prose pre{background:var(--code);border:1px solid var(--line);padding:12px 14px;overflow-x:auto;line-height:1.6;margin:0 0 16px}
+.prose pre code{background:none;padding:0;word-break:normal;white-space:pre}
+.back{padding-top:24px}
+
+.ft{padding-block:56px 64px;color:var(--ink-3);font-size:.85rem}
+
+@media (max-width:680px){
+  .hd-in{padding-block:40px 30px}
+  .item.has-note{grid-template-columns:minmax(0,1fr) 84px;gap:8px 16px}
+  .recent li,.made li{grid-template-columns:minmax(0,1fr)}
+}
