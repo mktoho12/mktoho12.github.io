@@ -130,8 +130,8 @@ group = "家で使っているもの"
 items = [
   { name = "リビングの電光掲示板", url = "https://github.com/EngineMaker/signboard", how = "古い iPad を、住人へのお知らせを出す掲示板にしました。Discord からも書き込めます。" },
   { name = "雨の通知", url = "https://github.com/EngineMaker/rain-alert", how = "降り始めと止みを Discord に知らせて、何時ごろまで降りそうかも添えます。" },
-  { name = "ごみの日の通知", url = "https://github.com/mktoho12/gomi-discord-bot", how = "収集日の前日18時に「明日は可燃ごみ」と流します。自分が忘れるので。" },
-  { name = "Discord のリアクション集計", url = "https://github.com/mktoho12/discord-reaction-stats", how = "コミュニティのリアクションを月ごとにまとめます。" },
+  { name = "ごみの日の通知", url = "", how = "収集日の前日18時に「明日は可燃ごみ」と流します。自分が忘れるので。" },
+  { name = "Discord のリアクション集計", url = "https://github.com/EngineMaker/discord-reaction-stats", how = "コミュニティのリアクションを月ごとにまとめます。" },
 ]
 
 [[made]]
