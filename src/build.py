@@ -203,7 +203,7 @@ def build_book(d: Path) -> tuple[str, str]:
             ch += 1
             sec = 0
             label, _, name = line[3:].strip().partition("　")
-            toc.append(f'<li><a href="#c{ch}"><span class="t-label">{html.escape(label)}</span>{phrase(name)}</a></li>')
+            toc.append(f'<li><a href="#c{ch}"><span class="t-label">{html.escape(label)}</span><span class="t-name">{phrase(name)}</span></a></li>')
             body.append(f'</section><section class="chapter" id="c{ch}"><header class="ch-head"><p class="ch-label">{html.escape(label)}</p><h2>{phrase(name)}</h2></header>')
         elif line.startswith("### "):
             sec += 1
