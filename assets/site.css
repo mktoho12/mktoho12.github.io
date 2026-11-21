@@ -101,3 +101,30 @@ time{color:var(--ink-2);font-variant-numeric:tabular-nums;font-size:.9rem;white-
   .item.has-note{grid-template-columns:minmax(0,1fr) 84px;gap:8px 16px}
   .recent li,.made li{grid-template-columns:minmax(0,1fr)}
 }
+
+/* 本のページ: 段落の形を残し、目次と章の見出しを足す */
+.hd-book .hd-in{padding-block:48px 40px;gap:12px}
+.kicker{font-size:.85rem;color:var(--acc);font-weight:700;letter-spacing:.06em}
+.book-title{font-size:clamp(1.8rem,6vw,2.6rem);line-height:1.4}
+.subtitle{font-size:1.05rem;color:var(--ink)}
+.meta{font-size:.85rem;color:var(--ink-2)}
+.book{padding-block:36px 0}
+.book p{margin:0 0 1.1em;line-height:2}
+.toc{border:1px solid var(--line);background:var(--paper);padding:16px 20px;margin-bottom:24px}
+.toc ol{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:4px}
+.toc a{display:grid;grid-template-columns:4.5em minmax(0,1fr);gap:0 10px;color:var(--ink);text-decoration:none}
+.toc a:hover{color:var(--acc);text-decoration:underline}
+.t-label{color:var(--acc);font-weight:700;font-size:.9rem}
+.chapter{padding-block:48px 8px;border-top:1px solid var(--line)}
+.ch-head{margin-bottom:20px}
+.ch-label{font-size:.8rem;color:var(--acc);font-weight:700;letter-spacing:.08em;margin:0 0 4px!important}
+.chapter h2{font-size:1.4rem;margin:0}
+.chapter h3{font-size:1.08rem;margin:32px 0 10px}
+.colophon{margin-top:40px;border-top:1px solid var(--acc);padding-top:8px}
+.colophon section{padding-block:24px 0}
+.colophon h2{font-size:1.1rem}
+.table-scroll{overflow-x:auto;margin:0 0 16px}
+.colophon table{border-collapse:collapse;font-size:.9rem;min-width:28em}
+.colophon th,.colophon td{border:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+.colophon th{background:var(--code)}
+.sources{padding-left:1.6em;display:grid;gap:4px;font-size:.92rem}

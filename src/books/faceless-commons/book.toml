@@ -1,0 +1,81 @@
+# 本『顔の見えない共有地』の表紙・奥付・出典。本文は body.md
+title = "顔の見えない共有地"
+kicker = "AIとOSSの、これから"
+subtitle = "AIの時代に、OSSが廃れたら社会はどう変わるか"
+meta = "2026年11月21日 校了 ・ 約16,000字 ・ 序章と5つの章と終章"
+date = "2026-11-21"
+description = "AIがコードを書く時代に、OSSの文化が廃れたら社会はどう変わるか。作ったものの届き方、知識の置き場所、支える人の負担、安全、お金の5つから考える、約1万6千字の本です。"
+colophon = "著者との対話をもとに、一般的な書籍の制作工程のうち、内容に関わる部分をなぞってつくりました。考えの持ち主は著者で、それ以外の役割はAIが分担しています。おすすめ案がある場面では、著者の判断を待たずに進めました。"
+process = [["企画", "編集者", "企画書と目次案をつくる"], ["企画会議", "別エージェント", "営業と読者の立場から検討する"], ["執筆", "ブックライター", "構成案に沿って初稿を書く"], ["編集", "編集者", "初稿を読んで直す"], ["校閲", "校閲者", "事実を調べ、出典を付ける"], ["初校", "校正者", "表記をそろえ、文を整える"], ["再校", "校正者", "差し替えた部分を確かめる"], ["著者校正", "代行", "著者の発言の記録と照らし合わせる"], ["校了", "編集者", "すべての指摘を反映して完成"]]
+
+[[sources]]
+title = "まつもとゆきひろ氏インタビュー（エンジニアtype、2026年11月20日）"
+url = "https://type.jp/et/feature/32219/"
+
+[[sources]]
+title = "Wiz：PHP2Shell の解説（2026年10月21日）"
+url = "https://www.wiz.io/blog/php2shell-php-rce"
+
+[[sources]]
+title = "BleepingComputer：PHP2Shell の悪用（2026年10月26日）"
+url = "https://bleepingcomputer.com/news/security/php2shell-security-flaws-now-sucessfully-exploited-in-the-wild"
+
+[[sources]]
+title = "BleepingComputer：Java4Shell（2026年11月17日）"
+url = "https://bleepingcomputer.com/news/security/critical-java4shell-flaw-allows-rce-attacks-on-major-java-applications"
+
+[[sources]]
+title = "RubyGems 公式ブログ：5月の大量投稿の続報（2026年9月11日）"
+url = "https://blog.rubygems.org/2026/09/11/update-may-spam-publishing-campaign.html"
+
+[[sources]]
+title = "Simon Willison：OpenAI のエージェントと RubyGems（2026年9月12日）"
+url = "https://simonwillison.net/2026/Sep/12/openai-agents-rubygems/"
+
+[[sources]]
+title = "MIT Technology Review：Heartbleed のあと（2014年4月29日）"
+url = "https://www.technologyreview.com/2014/04/29/172985/wheres-the-next-heartbleed-bug-lurking"
+
+[[sources]]
+title = "Linux Foundation：Linux カーネル開発の報告（2016年8月22日）"
+url = "https://www.linuxfoundation.org/press/press-release/the-linux-foundation-releases-development-report-highlighting-contributions-to-the-linux-kernel-ahead-of-25th-anniversary-of-linux"
+
+[[sources]]
+title = "Tidelift：OSS の管理者の燃え尽き調査（2023年5月）"
+url = "https://dev.to/tidelift/maintainer-burnout-is-real-almost-60-of-maintainers-have-quit-or-considered-quitting-maintaining-one-of-their-projects-51ma"
+
+[[sources]]
+title = "O'Reilly：『Code Reading』原書"
+url = "https://www.oreilly.com/library/view/code-reading-the/0201799405/"
+
+[[sources]]
+title = "Gibson Dunn：Doe 対 GitHub の控訴審（2026年9月）"
+url = "https://www.gibsondunn.com/ninth-circuit-clarifies-limits-of-dmca-liability-for-ai-generated-code/"
+
+[[sources]]
+title = "文化庁：AIと著作権について"
+url = "https://www.bunka.go.jp/seisaku/chosakuken/aiandcopyright.html"
+
+[[sources]]
+title = "OSI：オープンソースAIの定義"
+url = "https://opensource.org/ai"
+
+[[sources]]
+title = "Stanford HAI：AI Index 2025"
+url = "https://hai.stanford.edu/ai-index/2025-ai-index-report"
+
+[[sources]]
+title = "林野庁：入会林野等の整備"
+url = "https://www.rinya.maff.go.jp/j/keiei/iriai_rinyatou_seibi.html"
+
+[[sources]]
+title = "ハーディン「共有地の悲劇」（Science、1968年）"
+url = "https://www.garretthardinsociety.org/articles/art_tragedy_of_the_commons.html"
+
+[[sources]]
+title = "Scientific American：オストロムの研究"
+url = "https://www.scientificamerican.com/blog/observations/the-tragedy-of-the-commons-revisited/"
+
+[[sources]]
+title = "コンピュータ歴史博物館：ソフトウェアが商品になる"
+url = "https://www.computerhistory.org/revolution/mainframe-computers/7/172"
