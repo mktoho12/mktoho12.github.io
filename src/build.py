@@ -53,7 +53,7 @@ FONTS = (
 )
 
 
-def head(title: str, desc: str, url: str, depth: str) -> str:
+def head(title: str, desc: str, url: str, depth: str, image: str = "https://mktoho.dev/og.png", og_type: str = "website", card: str = "summary", og_title: str = "") -> str:
     return f"""<!doctype html>
 <html lang="ja">
 <head>
@@ -61,12 +61,14 @@ def head(title: str, desc: str, url: str, depth: str) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{attr(desc)}">
-<meta property="og:title" content="{attr(title)}">
+<meta property="og:title" content="{attr(og_title or title)}">
+<meta property="og:site_name" content="mktoho">
+<meta property="og:locale" content="ja_JP">
 <meta property="og:description" content="{attr(desc)}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:url" content="{attr(url)}">
-<meta property="og:image" content="https://mktoho.dev/og.png">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="{attr(image)}">
+<meta name="twitter:card" content="{card}">
 <meta name="twitter:site" content="@mktoho12">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -148,8 +150,8 @@ def build_index(site: dict) -> str:
     return "\n".join(o)
 
 
-def md_line(line: str) -> str:
-    """Markdown の1行に、コード以外の部分だけ <wbr> を入れる"""
+def md_line(line: str, keep_period: bool = False) -> str:
+    """Markdown の1行に、コード以外の部分だけ <wbr> を入れる（keep_period=False なら句点を消す）"""
     parts = re.split(r"(`[^`]*`)", line)
     out = []
     for p in parts:
@@ -159,7 +161,8 @@ def md_line(line: str) -> str:
         m = re.match(r"^(\s*(?:#{1,6} |[-*] |\d+\. )?)(.*)$", p) if not out else None
         prefix, body = (m.group(1), m.group(2)) if m else ("", p)
         # Markdown の記号（* _ [ ] など）はほぼ使わないので、そのまま BudouX に通す
-        out.append(prefix + "<wbr>".join(PARSER.parse(body.replace("。", ""))) if body else prefix)
+        body = body if keep_period else body.replace("。", "")
+        out.append(prefix + "<wbr>".join(PARSER.parse(body)) if body else prefix)
     return "".join(out)
 
 
@@ -178,13 +181,56 @@ def build_note(path: Path) -> tuple[str, str]:
             body.append(md_line(line))
     content = markdown.markdown("\n".join(body), extensions=["fenced_code", "nl2br"])
     slug = path.stem
-    o = [head(f"{title} | mktoho", lead, f"https://mktoho.dev/notes/{slug}/", "../../")]
+    o = [head(f"{title} | mktoho", lead, f"https://mktoho.dev/notes/{slug}/", "../../", og_type="article")]
     o.append('<header class="hd hd-note"><div class="wrap hd-in">')
     o.append('<p class="nm"><a href="/"><img src="/assets/icon.png" alt="" width="40" height="40">mktoho</a></p>')
     o.append(f'<h1 class="lede">{"<wbr>".join(html.escape(c) for c in PARSER.parse(title))}</h1>')
     o.append('</div></header><main class="wrap prose">')
     o.append(content)
     o.append('<p class="back"><a href="/">トップに戻る</a></p></main>')
+    o.append(FOOT)
+    return slug, "\n".join(o)
+
+
+def build_book(d: Path) -> tuple[str, str]:
+    """src/books/<名前>/ の book.toml と body.md から本のページを作る
+    本は段落の形を残す（サイトの他のページと違い、一文ごとの改行はしない）"""
+    meta = tomllib.loads((d / "book.toml").read_text(encoding="utf-8"))
+    slug = d.name
+    toc, body, ch, sec = [], [], 0, 0
+    for line in (d / "body.md").read_text(encoding="utf-8").splitlines():
+        if line.startswith("## "):
+            ch += 1
+            sec = 0
+            label, _, name = line[3:].strip().partition("　")
+            toc.append(f'<li><a href="#c{ch}"><span class="t-label">{html.escape(label)}</span>{phrase(name)}</a></li>')
+            body.append(f'</section><section class="chapter" id="c{ch}"><header class="ch-head"><p class="ch-label">{html.escape(label)}</p><h2>{phrase(name)}</h2></header>')
+        elif line.startswith("### "):
+            sec += 1
+            body.append(f'<h3 id="c{ch}s{sec}">{phrase(line[4:].strip())}</h3>')
+        elif line.strip():
+            body.append(markdown.markdown(md_line(line, keep_period=True)))
+    chapters = "\n".join(body).removeprefix("</section>") + "</section>"
+    rows = "".join("<tr>" + "".join(f"<td>{html.escape(c)}</td>" for c in r) + "</tr>" for r in meta["process"])
+    sources = "".join(f'<li><a href="{attr(s["url"])}">{html.escape(s["title"])}</a></li>' for s in meta["sources"])
+    url = f"https://mktoho.dev/books/{slug}/"
+    o = [head(f'{meta["title"]} | mktoho', meta["description"], url, "../../", image=url + "og.png",
+              og_type="article", card="summary_large_image", og_title=f'{meta["title"]} ―― {meta["subtitle"]}')]
+    o[0] = o[0].replace('<meta name="twitter:card"', '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="' + attr(meta["title"]) + '">\n<meta property="article:published_time" content="' + meta["date"] + '">\n<meta name="twitter:card"', 1)
+    o.append('<header class="hd hd-book"><div class="wrap hd-in">')
+    o.append('<p class="nm"><a href="/"><img src="/assets/icon.png" alt="" width="40" height="40">mktoho</a></p>')
+    o.append(f'<p class="kicker">{phrase(meta["kicker"])}</p>')
+    o.append(f'<h1 class="lede book-title">{phrase(meta["title"])}</h1>')
+    o.append(f'<p class="subtitle">{phrase(meta["subtitle"])}</p>')
+    o.append(f'<p class="meta">{html.escape(meta["meta"])}</p>')
+    o.append('</div></header><main class="wrap book">')
+    o.append(f'<nav class="toc" aria-label="目次"><p class="lbl">目次</p><ol>{"".join(toc)}</ol></nav>')
+    o.append(chapters)
+    o.append('<footer class="colophon" id="colophon">')
+    o.append(f'<section><h2>奥付　この本のつくり方</h2><p>{phrase(meta["colophon"])}</p>')
+    o.append(f'<div class="table-scroll"><table><thead><tr><th>工程</th><th>担当</th><th>中身</th></tr></thead><tbody>{rows}</tbody></table></div></section>')
+    o.append(f'<section><h2>校閲で参照した資料</h2><ol class="sources">{sources}</ol></section>')
+    o.append('</footer><p class="back"><a href="/">トップに戻る</a></p></main>')
     o.append(FOOT)
     return slug, "\n".join(o)
 
@@ -198,6 +244,14 @@ def main() -> None:
         out = ROOT / "notes" / slug / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page, encoding="utf-8")
+        print(out.relative_to(ROOT))
+    for d in sorted(p for p in (SRC / "books").glob("*") if p.is_dir()):
+        slug, page = build_book(d)
+        out = ROOT / "books" / slug / "index.html"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(page, encoding="utf-8")
+        if (d / "og.png").exists():  # SNS で出るカード画像（1200×630）
+            (out.parent / "og.png").write_bytes((d / "og.png").read_bytes())
         print(out.relative_to(ROOT))
 
 

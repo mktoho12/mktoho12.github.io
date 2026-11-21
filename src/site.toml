@@ -30,6 +30,11 @@ mail = "mk@mktoho.dev"
 # 最近のこと。新しいものを先頭に足す。新しい順に上から8件を表示し、それより前は「それより前」にたたむ
 # 作業セッションの終わりに AI が1行の案を出し、本人の OK で足す
 [[recent]]
+date = "2026-11-21"
+text = "本『顔の見えない共有地』を AI と作った（AIの時代に、OSSが廃れたら社会はどう変わるか）"
+url = "/books/faceless-commons/"
+
+[[recent]]
 date = "2026-11-16"
 text = "アメリカの50州を紹介する、3分の動く映像を AI に作ってもらった"
 url = "https://claude.ai/artifact/RyMWXqYr7wxr5p43RGFiZq"
@@ -126,6 +131,13 @@ now = "フィールドワークと健康を兼ねて、一人でよく歩いて�
 
 # 作ったもの
 [[made]]
+group = "書いたもの"
+items = [
+  { name = "顔の見えない共有地", url = "/books/faceless-commons/", how = "AIの時代に、OSSが廃れたら社会はどう変わるかを考えた、約1万6千字の本。著者への聞き取りから、編集、校閲、校正まで AI が分担しました。" },
+  { name = "家のサーバーを Ubuntu 26.04 に上げた記録", url = "/notes/ubuntu-26-04/", how = "途中で GPU のドライバーが消えた話と、AI との分担。" },
+]
+
+[[made]]
 group = "家で使っているもの"
 items = [
   { name = "リビングの電光掲示板", url = "https://github.com/EngineMaker/signboard", how = "古い iPad を、住人へのお知らせを出す掲示板にしました。Discord からも書き込めます。" },
@@ -142,7 +154,6 @@ items = [
   { name = "『銃・病原菌・鉄』の読書記録", url = "https://github.com/mktoho12/reading-guns-germs-steel", how = "章に入る前に要約を出してもらいながら読んでいます。" },
   { name = "ずんだもんの動画", url = "https://www.youtube.com/@zundamon-sharehouse", how = "シェアハウスの暮らしを題材にした、ずんだもんの短い動画です。" },
   { name = "麦茶の動画と motion-kit", url = "https://github.com/mktoho12/motion-kit", how = "リビングの画面で流す15秒の動画と、その作り方の型。" },
-  { name = "家のサーバーを Ubuntu 26.04 に上げた記録", url = "/notes/ubuntu-26-04/", how = "途中で GPU のドライバーが消えた話と、AI との分担。" },
 ]
 
 [[made]]
